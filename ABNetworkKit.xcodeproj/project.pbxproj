@@ -24,7 +24,7 @@
 		A1C54457216B3AE500B665C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A1C54455216B3AE500B665C4 /* README.md */; };
 		A1C5445A216B808100B665C4 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C54459216B808100B665C4 /* SampleUser.swift */; };
 		A1CFD65C216DD92500A34845 /* BackgroundDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CFD65B216DD92500A34845 /* BackgroundDispatcher.swift */; };
-		A1CFD65E216E00AD00A34845 /* pon.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CFD65D216E00AD00A34845 /* pon.png */; };
+		A1CFD660216E07BB00A34845 /* flow.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CFD65F216E07BB00A34845 /* flow.png */; };
 		A1DA3B042169F77D00DC9019 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA3B032169F77D00DC9019 /* SampleRequest.swift */; };
 		A1DA3B062169F78E00DC9019 /* SampleOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA3B052169F78E00DC9019 /* SampleOperation.swift */; };
 		A1DA3B34216A147600DC9019 /* ABNetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1465B9C215F854A0022C635 /* ABNetworkKit.framework */; };
@@ -79,7 +79,7 @@
 		A1C54455216B3AE500B665C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A1C54459216B808100B665C4 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
 		A1CFD65B216DD92500A34845 /* BackgroundDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDispatcher.swift; sourceTree = "<group>"; };
-		A1CFD65D216E00AD00A34845 /* pon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pon.png; sourceTree = "<group>"; };
+		A1CFD65F216E07BB00A34845 /* flow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flow.png; sourceTree = "<group>"; };
 		A1DA3B032169F77D00DC9019 /* SampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		A1DA3B052169F78E00DC9019 /* SampleOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleOperation.swift; sourceTree = "<group>"; };
 		A1EBA3DD2168DD9B00265C16 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
@@ -149,7 +149,6 @@
 		A1465BB9215F86230022C635 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A1CFD65D216E00AD00A34845 /* pon.png */,
 				A1465B9F215F854A0022C635 /* ABNetworkKit.h */,
 				A1465BA0215F854A0022C635 /* Info.plist */,
 			);
@@ -178,6 +177,7 @@
 		A1C54453216B3AB200B665C4 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				A1CFD65F216E07BB00A34845 /* flow.png */,
 				A1C54454216B3AE500B665C4 /* LICENSE */,
 				A1C54455216B3AE500B665C4 /* README.md */,
 				A100AF14216C8E8600C68E9D /* Usage.md */,
@@ -306,7 +306,7 @@
 				A100AF15216C8E8600C68E9D /* Usage.md in Resources */,
 				A1C54457216B3AE500B665C4 /* README.md in Resources */,
 				A1C54456216B3AE500B665C4 /* LICENSE in Resources */,
-				A1CFD65E216E00AD00A34845 /* pon.png in Resources */,
+				A1CFD660216E07BB00A34845 /* flow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

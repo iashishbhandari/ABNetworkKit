@@ -6,30 +6,7 @@
 	<integer>9</integer>
 	<key>logs</key>
 	<dict>
-		<key>6A38D3DB-46F9-4F00-830A-523D18921C21</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
-			<key>fileName</key>
-			<string>6A38D3DB-46F9-4F00-830A-523D18921C21.xcactivitylog</string>
-			<key>highLevelStatus</key>
-			<string>S</string>
-			<key>signature</key>
-			<string>Sample-afdcynlodmfsroevkgpmkpenrysx</string>
-			<key>timeStartedRecording</key>
-			<real>560857571.72872698</real>
-			<key>timeStoppedRecording</key>
-			<real>560857575.87641501</real>
-			<key>title</key>
-			<string>Build target Sample</string>
-			<key>uniqueIdentifier</key>
-			<string>6A38D3DB-46F9-4F00-830A-523D18921C21</string>
-		</dict>
-		<key>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85</key>
+		<key>86830902-6429-42FA-9D02-782B9C1EAEBA</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -38,19 +15,42 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.framework</string>
 			<key>fileName</key>
-			<string>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85.xcactivitylog</string>
+			<string>86830902-6429-42FA-9D02-782B9C1EAEBA.xcactivitylog</string>
 			<key>highLevelStatus</key>
 			<string>S</string>
 			<key>signature</key>
 			<string>ABNetworkKit-afdcynlodmfsroevkgpmkpenrysx</string>
 			<key>timeStartedRecording</key>
-			<real>560857567.14278996</real>
+			<real>560859381.80905497</real>
 			<key>timeStoppedRecording</key>
-			<real>560857571.72591901</real>
+			<real>560859382.05002904</real>
 			<key>title</key>
 			<string>Build target ABNetworkKit</string>
 			<key>uniqueIdentifier</key>
-			<string>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85</string>
+			<string>86830902-6429-42FA-9D02-782B9C1EAEBA</string>
+		</dict>
+		<key>9298AC65-0847-41B2-9F70-29FA3CB281A6</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
+			<key>fileName</key>
+			<string>9298AC65-0847-41B2-9F70-29FA3CB281A6.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>S</string>
+			<key>signature</key>
+			<string>Sample-afdcynlodmfsroevkgpmkpenrysx</string>
+			<key>timeStartedRecording</key>
+			<real>560859348.33809602</real>
+			<key>timeStoppedRecording</key>
+			<real>560859354.51324499</real>
+			<key>title</key>
+			<string>Build target Sample</string>
+			<key>uniqueIdentifier</key>
+			<string>9298AC65-0847-41B2-9F70-29FA3CB281A6</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

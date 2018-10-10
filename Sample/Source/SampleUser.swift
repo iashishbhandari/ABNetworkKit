@@ -1,10 +1,5 @@
-//
-//  SampleUser.swift
-//  Sample
-//
-//  Created by Ashish Bhandari on 08/10/18.
-//  Copyright © 2018 iashishbhandari. All rights reserved.
-//
+// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+
 
 import Foundation
 

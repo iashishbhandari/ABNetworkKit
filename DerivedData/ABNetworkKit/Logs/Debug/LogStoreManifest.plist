@@ -151,6 +151,35 @@
 			<key>uniqueIdentifier</key>
 			<string>47D1FED2-DACB-4FEA-AACB-492799099A50</string>
 		</dict>
+		<key>48088170-071E-4806-8BC5-E45843D6C14E</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>48088170-071E-4806-8BC5-E45843D6C14E.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>S</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>ABNetworkKit project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Sample</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>0</integer>
+			<key>signature</key>
+			<string>Debug Sample</string>
+			<key>timeStartedRecording</key>
+			<real>560859354.53505003</real>
+			<key>timeStoppedRecording</key>
+			<real>560859377.04521203</real>
+			<key>title</key>
+			<string>Debug Sample</string>
+			<key>uniqueIdentifier</key>
+			<string>48088170-071E-4806-8BC5-E45843D6C14E</string>
+		</dict>
 		<key>99CED7BF-95DD-48DB-B062-25E2461E086C</key>
 		<dict>
 			<key>className</key>

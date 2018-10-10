@@ -4,7 +4,7 @@ A protocol oriented approach to HTTP Networking on iOS.
 ABNetworkKit supports three custom data types conforming to DispatcherProtocol, OperationProtocol and RequestProtocol. It also define some NetworkTypes to encapsulate certain required informations for URL session.
 
 
-### Protocols (Swift)
+## Protocols (Swift)
 
 ###  NetworkDispatcher confirms to DispatcherProtocol 
 
@@ -71,7 +71,7 @@ public protocol RequestProtocol {
 
 ```
 
-### NetworkTypes (Swift)
+## NetworkTypes (Swift)
 
 ### Environment 
 
@@ -230,11 +230,13 @@ $ pod install
 
 ## Usage
 
-![Flowchart not available](https://github.com/iashishbhandari/ABNetworkKit/tree/master/ABNetworkKit/Supporting%20Files/pon.png)
+
+![](https://github.com/iashishbhandari/ABNetworkKit/blob/master/ABNetworkKit/Deployment/flow.png)
+
 
 See the [usage][] for more info.
 
-[usage]: https://github.com/iashishbhandari/ABNetworkKit/issues
+[usage]: https://github.com/iashishbhandari/ABNetworkKit/blob/master/ABNetworkKit/Deployment/Usage.md
 
 ## Communication
 
