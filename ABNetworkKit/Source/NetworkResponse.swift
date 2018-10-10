@@ -5,7 +5,7 @@ import Foundation
 
 public enum NetworkResponse {
     
-    case binary(_: Data?, _: HTTPURLResponse?)
+    case binary(_: Data?, _: HTTPURLResponse?, _:URL?)
 
     case error(_: Error?, _: HTTPURLResponse?)
 
@@ -24,7 +24,7 @@ public enum NetworkResponse {
         
         switch request.responseType {
         case .binary:
-            self = .binary(response.data, response.httpResponse)
+            self = .binary(response.data, response.httpResponse, nil)
         case .json:
             do {
                 if let data = response.data {

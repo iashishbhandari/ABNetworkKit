@@ -5,29 +5,67 @@ import ABNetworkKit
 
 enum SampleRequest: RequestProtocol {
     
-    case getSampleData
+    case getSampleUsers
+    
+    case downloadSampleImage
+    
+    case uploadSampleVideo
+    
     
     var actionType: RequestAction {
-        return .standard
+        switch self {
+        case .downloadSampleImage:
+            return .download
+        case .getSampleUsers:
+            return .standard
+        case .uploadSampleVideo:
+            return .upload
+        }
     }
     
     var headers: [String : String]? {
-        return [ : ]
+        return ["content-type" : "application/json"]
     }
     
     var method: HTTPMethod {
-        return .get
+        switch self {
+        case .downloadSampleImage:
+            return .get
+        case .getSampleUsers:
+            return .get
+        case .uploadSampleVideo:
+            return .post
+        }
     }
     
     var parameters: RequestParams {
-        return .url(nil)
+        switch self {
+        case .downloadSampleImage:
+            return .url(nil)
+        case .getSampleUsers:
+            return .url(nil)
+        case .uploadSampleVideo:
+            return .body(["filename" : "sample.mp4"])
+        }
     }
     
     var path: String {
-        return ""
+        switch self {
+        case .downloadSampleImage:
+            return "/wiki/Elizabeth_Olsen#/media/File:Elizabeth_Olsen_SDCC_2014_2_(cropped).jpg"
+        case .getSampleUsers:
+            return "/users"
+        case .uploadSampleVideo:
+            return "/upload"
+        }
     }
     
     var responseType: ResponseType {
-        return .json
+        switch self {
+        case .downloadSampleImage:
+            return .binary
+        default:
+            return .json
+        }
     }
 }

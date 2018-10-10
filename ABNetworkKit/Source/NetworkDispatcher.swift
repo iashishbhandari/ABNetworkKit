@@ -5,7 +5,13 @@ import Foundation
 
 open class NetworkDispatcher: NetworkServices, DispatcherProtocol {
     
-    private var environment: Environment
+    private var environment: Environment {
+        didSet {
+            self.environmentType = environment.type
+        }
+    }
+    
+    public var environmentType: EnvironmentType = .production
     
     private override init(configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
         self.environment = Environment()
@@ -26,37 +32,73 @@ open class NetworkDispatcher: NetworkServices, DispatcherProtocol {
         
         var task: URLSessionTask?
         
-        if let urlRequest = try? self.prepareURLRequest(for: request) {
+        do {
+            let urlRequest = try self.prepareURLRequest(for: request)
             switch request.actionType {
-             
+                
             case .download:
+                log("Executing request ⏳ ", urlRequest)
                 task = downloadTask(request: urlRequest, destination: { (url, urlResponse) -> URL in
                     return url
-                }, with: { (url, urlResponse, error) in
-                    completion(NetworkResponse((urlResponse as? HTTPURLResponse, nil, error), for: request))
+                }, with: { [weak self] (fileURL, urlResponse, error) in
+                    self?.log("Received response 👍 ", urlResponse)
+                    if let _ = error {
+                        completion(NetworkResponse.error(error, urlResponse as? HTTPURLResponse))
+                    } else {
+                        completion(NetworkResponse.binary(nil, urlResponse as? HTTPURLResponse, fileURL))
+                    }
                 })
                 task?.resume()
                 
             case .standard:
-                task = self.session?.dataTask(with: urlRequest, completionHandler: { (data, urlResponse, error) in
+                log("Executing request ⏳ ", urlRequest)
+                task = self.session?.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
+                    self?.log("Received response 👍 ", urlResponse)
                     completion(NetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
                 })
                 task?.resume()
                 
             case .upload:
-                task = uploadTask(for: urlRequest, from: Data())
+                task = uploadTask(for: urlRequest, fromFile: URL(string: "")!, completion: { [weak self] (data, urlResponse, error) in
+                    self?.log("Received response 👍 ", urlResponse)
+                    completion(NetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
+                })
                 task?.resume()
             }
+            
+        } catch {
+            log("Got request Exception 🤭 ", error)
+            completion(NetworkResponse.error(error, nil))
         }
         
         return task
     }
     
+    public func log(_ entry: Any? ...) {
+        
+        switch environment.type {
+            
+        case .development:
+            print("DISPATCHER ☞ ", entry.filter { $0 != nil }.map { $0! })
+            
+        default: break
+        }
+    }
+    
     private func prepareURLRequest(for request: RequestProtocol) throws -> URLRequest {
 
+        switch environment.type {
+            
+        case .custom(let hostPath):
+            environment.host = hostPath
+            
+        default: break
+        }
+        
         let url_string = environment.host + request.path
         
-        guard let url = URL(string: url_string) else {
+        guard !url_string.isEmpty, let url = URL(string: url_string) else {
+            log("Bad host url ⚠️ ", url_string)
             throw NetworkError.badInput
         }
         
@@ -68,7 +110,7 @@ open class NetworkDispatcher: NetworkServices, DispatcherProtocol {
             if let params = params as? [String: String] {
                 url_request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             } else {
-                throw NetworkError.badInput
+                log("No request body ⚠️ ", request)
             }
             
         case .url(let params):
@@ -84,7 +126,7 @@ open class NetworkDispatcher: NetworkServices, DispatcherProtocol {
                     url_request.url = components.url
                 }
             } else {
-                throw NetworkError.badInput
+                log("No request params ⚠️ ", request)
             }
         }
         
@@ -96,6 +138,3 @@ open class NetworkDispatcher: NetworkServices, DispatcherProtocol {
         return url_request
     }
 }
-
-
-

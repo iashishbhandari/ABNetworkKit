@@ -6,7 +6,7 @@
 	<integer>9</integer>
 	<key>logs</key>
 	<dict>
-		<key>3B79A2C7-2018-4997-A949-CD4D573B1A31</key>
+		<key>6A38D3DB-46F9-4F00-830A-523D18921C21</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -15,21 +15,21 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>3B79A2C7-2018-4997-A949-CD4D573B1A31.xcactivitylog</string>
+			<string>6A38D3DB-46F9-4F00-830A-523D18921C21.xcactivitylog</string>
 			<key>highLevelStatus</key>
 			<string>S</string>
 			<key>signature</key>
 			<string>Sample-afdcynlodmfsroevkgpmkpenrysx</string>
 			<key>timeStartedRecording</key>
-			<real>560605410.41572499</real>
+			<real>560857571.72872698</real>
 			<key>timeStoppedRecording</key>
-			<real>560605434.98973405</real>
+			<real>560857575.87641501</real>
 			<key>title</key>
 			<string>Build target Sample</string>
 			<key>uniqueIdentifier</key>
-			<string>3B79A2C7-2018-4997-A949-CD4D573B1A31</string>
+			<string>6A38D3DB-46F9-4F00-830A-523D18921C21</string>
 		</dict>
-		<key>F91754AD-DE24-48B0-BCCA-0F15D5F7467E</key>
+		<key>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -38,19 +38,19 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.framework</string>
 			<key>fileName</key>
-			<string>F91754AD-DE24-48B0-BCCA-0F15D5F7467E.xcactivitylog</string>
+			<string>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85.xcactivitylog</string>
 			<key>highLevelStatus</key>
 			<string>S</string>
 			<key>signature</key>
 			<string>ABNetworkKit-afdcynlodmfsroevkgpmkpenrysx</string>
 			<key>timeStartedRecording</key>
-			<real>560625411.67033803</real>
+			<real>560857567.14278996</real>
 			<key>timeStoppedRecording</key>
-			<real>560625419.38278401</real>
+			<real>560857571.72591901</real>
 			<key>title</key>
 			<string>Build target ABNetworkKit</string>
 			<key>uniqueIdentifier</key>
-			<string>F91754AD-DE24-48B0-BCCA-0F15D5F7467E</string>
+			<string>A1AF7197-7DD8-4BF3-B68D-ADA22BFC4F85</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

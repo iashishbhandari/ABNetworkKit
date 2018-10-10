@@ -64,10 +64,10 @@ import Foundation
     open func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, with completion: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask? {
         
         self.request = request
-        let downloadTask = session?.downloadTask(with: request) { (url, response, error) in
+        let downloadTask = session?.downloadTask(with: request) { (fileURL, response, error) in
             var downloadFileURL: URL?
             var downloadFileError = error
-            if let location = url,
+            if let location = fileURL,
                 let response = response {
                 downloadFileURL = destination(location, response)
                 if let downloadFileURL = downloadFileURL {
@@ -79,16 +79,19 @@ import Foundation
                 }
             }
             DispatchQueue.main.async {
-                completion(url, response, downloadFileError)
+                completion(fileURL, response, downloadFileError)
             }
         }
         return downloadTask
     }
     
-    open func uploadTask(for request: URLRequest, from data: Data) -> URLSessionUploadTask? {
+    open func uploadTask(for request: URLRequest, fromFile fileURL: URL, completion: @escaping (Data?, URLResponse?, Error?)->Void) -> URLSessionUploadTask? {
         
         self.request = request
-        return session?.uploadTask(with: request, from: data)
+        let uploadTask = session?.uploadTask(with: request, fromFile: fileURL, completionHandler: { (data, urlResponse, error) in
+            completion(data, urlResponse, error)
+        })
+        return uploadTask
     }
 }
 

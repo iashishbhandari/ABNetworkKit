@@ -13,7 +13,7 @@ public struct Environment {
     
     init() {
         self.host = ""
-        self.type = .none
+        self.type = .custom("")
     }
     
     public init(host: String, type: EnvironmentType) {
@@ -24,23 +24,11 @@ public struct Environment {
 
 public enum EnvironmentType {
     
+    case custom(String)
+
     case development
     
-    case none
-    
     case production
-    
-    
-    init(_ rawValue: Int) {
-        switch rawValue {
-        case 0:
-            self = .development
-        case 1:
-            self = .production
-        default:
-            self = .none
-        }
-    }
 }
 
 public enum HTTPMethod: String {
@@ -56,7 +44,7 @@ public enum HTTPMethod: String {
     case put    = "PUT"
 }
 
-public enum NetworkError: Error {
+internal enum NetworkError: Error {
     
     case badInput
     
