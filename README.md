@@ -1,14 +1,14 @@
 # ABNetworkKit
 A protocol oriented approach to HTTP Networking on iOS.
 
-ABNetworkKit supports custom data types conforming to three protocols ABDispatcherProtocol, ABOperationProtocol and ABRequestProtocol. It also define some ABNetworkTypes to encapsulate certain required informations for a URL session.
+ABNetworkKit supports custom data types conforming to three protocols ABDispatcherProtocol, ABOperationProtocol and ABRequestProtocol. It also define ABNetworkTypes to encapsulate certain required information to establish a HTTP URL session.
 
 
 ## Protocols (Swift)
 
 ###  ABDispatcherProtocol 
 
-The included `ABNetworkDispatcher` (open to subclass) is responsible for initiating requests to and forwarding on all information directly from the URL session. It confirms to `ABDispatcherProtocol`
+The included `ABNetworkDispatcher` (open to subclass) is responsible for initiating requests and to forwarding on information directly from the underlying URL session. It conforms to `ABDispatcherProtocol`
 
 ```swift
 
@@ -29,7 +29,7 @@ public protocol ABDispatcherProtocol {
 
 ###  ABOperationProtocol 
 
-A struct Operation needs to be created for attaching HTTP requests to the `ABNetworkDispatcher`. It will confirm to `ABOperationProtocol`
+A Operation struct needs to be created for attaching HTTP requests to the `ABNetworkDispatcher`. It will conform to `ABOperationProtocol`
 
 ```swift
 
@@ -50,7 +50,7 @@ public protocol ABOperationProtocol {
 
 ###  ABRequestProtocol 
 
-An enum Request needs to be created for encapsulation of all attributes and actions required to make an URLRequest for a URL session. It will confirm to `ABRequestProtocol`
+A Request enumeration needs to be created for encapsulation of all attributes and actions required to make a URLRequest for the underlying URL session. It will conform to `ABRequestProtocol`
 
 ```swift
 
@@ -75,7 +75,7 @@ public protocol ABRequestProtocol {
 
 ### ABEnvironment 
 
-The `ABEnvironment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all URLRequests on this network.
+The `ABEnvironment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all the URLRequests on this network.
 
 ```swift
 
@@ -155,7 +155,7 @@ public enum ABRequestAction {
 
 ```
 
-### RequestParams 
+### ABRequestParams 
 
 The `ABRequestParams` represents URLRequest parameters url for GET and body for POST requests.
 
@@ -170,7 +170,7 @@ public enum ABRequestParams {
 
 ```
 
-### ResponseType 
+### ABResponseType 
 
 The `ABResponseType`  represents the supported HTTP Response types.
 
@@ -185,7 +185,7 @@ public enum ABResponseType {
 
 ```
 
-### NetworkResponse 
+### ABNetworkResponse 
 
 The `ABNetworkResponse` handler for converting HTTP Response to corresponding `ABResponseType`
 

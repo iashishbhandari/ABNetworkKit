@@ -2,7 +2,7 @@
 
 ### Making a Request
 
-A sample request enumeration confirming the `ABRequestProtocol`
+A sample Request enumeration conforming the `ABRequestProtocol`
 
 ```swift
 import ABNetworkKit
@@ -40,7 +40,7 @@ enum SampleRequest: ABRequestProtocol {
 
 ### Making a Operation
 
-A sample operation enumeration confirming the `ABOperationProtocol`
+A sample Operation enumeration confirming the `ABOperationProtocol`
 
 ```swift
 
@@ -124,7 +124,7 @@ Authentication is handled on the system framework level by [`URLAuthenticationCh
 
 ### NetworkSecurityPolicy
 
-The `evaluateServerTrust` method on a `Request` will automatically provide a `URLCredential` to a `URLAuthenticationChallenge` when appropriate based on user defined `SSLPinningMode` policy:
+The `evaluateServerTrust` method on a `URLRequest` will automatically provide a `URLCredential` to a `URLAuthenticationChallenge` when appropriate based on user defined `ABSSLPinningMode` policy:
 
 ```swift
 

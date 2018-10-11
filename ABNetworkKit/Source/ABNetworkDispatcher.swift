@@ -73,7 +73,9 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
                 log("Executing request ⏳ ", urlRequest)
                 task = self.session?.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
                     self?.log("Received response 👍 ", urlResponse)
-                    completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
+                    DispatchQueue.main.async {
+                        completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
+                    }
                 })
                 task?.resume()
                 
