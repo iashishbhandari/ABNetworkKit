@@ -3,15 +3,15 @@
 
 import ABNetworkKit
 
-class SampleOperation: OperationProtocol {
+class SampleOperation: ABOperationProtocol {
     
     var sessionTask: URLSessionTask?
     
     typealias Output = ([SampleUser]?, URL?, Error?)
     
-    var request: RequestProtocol
+    var request: ABRequestProtocol
     
-    init(_ request: RequestProtocol) {
+    init(_ request: ABRequestProtocol) {
         self.request = request
     }
     
@@ -19,17 +19,17 @@ class SampleOperation: OperationProtocol {
        sessionTask?.cancel()
     }
     
-    func execute(in dispatcher: DispatcherProtocol, _ completion: @escaping (([SampleUser]?, URL?, Error?)) -> Void) {
+    func execute(in dispatcher: ABDispatcherProtocol, _ completion: @escaping (([SampleUser]?, URL?, Error?)) -> Void) {
         var users: [SampleUser]?
         var error: Error?
-        var location: URL?
+        var fileURL: URL?
         do {
             sessionTask = try dispatcher.execute(request: request, completion: { (response) in
                 
                 switch response {
 
-                case .binary(_, _, let fileURL):
-                    location = fileURL
+                case .file(let url, _):
+                    fileURL = url
                     
                 case .error(let err, _):
                     error = err
@@ -38,11 +38,11 @@ class SampleOperation: OperationProtocol {
                     (users, error) = self.parseSampleUsers(JSON)
                 }
                 
-                completion((users, location, error))
+                completion((users, fileURL, error))
             })
             
         } catch {
-            completion((users, location, error))
+            completion((users, fileURL, error))
         }
     }
     

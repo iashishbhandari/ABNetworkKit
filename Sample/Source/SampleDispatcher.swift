@@ -2,21 +2,24 @@
 
 import ABNetworkKit
 
-class BackgroundDispatcher: NetworkDispatcher {
+class SampleDispatcher: ABNetworkDispatcher {
 
     convenience init() {
         let config = URLSessionConfiguration.ephemeral
         config.isDiscretionary = true
-        self.init(environment: Environment(host: "https://en.wikipedia.org", type: .development), configuration: config, delegateQueue: OperationQueue())
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .userInitiated
+        self.init(environment: ABEnvironment(host: "https://jsonplaceholder.typicode.com", type: .development), configuration: config, delegateQueue: queue)
         self.securityPolicy.allowInvalidCertificates = true
     }
     
-    required init(environment: Environment) {
+    required init(environment: ABEnvironment) {
         super.init(environment: environment)
         self.securityPolicy.allowInvalidCertificates = true
     }
     
-    required init(environment: Environment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
+    required init(environment: ABEnvironment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
         super.init(environment: environment, configuration: configuration, delegateQueue: delegateQueue)
         self.securityPolicy.allowInvalidCertificates = true
     }

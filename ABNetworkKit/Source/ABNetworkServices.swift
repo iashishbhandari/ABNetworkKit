@@ -3,9 +3,9 @@
 
 import Foundation
 
-@objcMembers open class NetworkServices: NSObject {
+@objcMembers open class ABNetworkServices: NSObject {
     
-    open var securityPolicy = NetworkSecurityPolicy.defaultPolicy
+    open var securityPolicy = ABNetworkSecurityPolicy.defaultPolicy
     
     open var session: URLSession?
     
@@ -13,7 +13,7 @@ import Foundation
     
     open var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, URLResponse, URLRequest)->URLRequest)?
     
-    public static let defaultSharedServices: NetworkServices = {
+    public static let defaultSharedServices: ABNetworkServices = {
         let concurrentQueue = OperationQueue()
         concurrentQueue.maxConcurrentOperationCount = 3
         concurrentQueue.qualityOfService = .userInitiated
@@ -22,7 +22,7 @@ import Foundation
         if #available(iOS 11, *) {
             defaultSessionConfiguration.waitsForConnectivity = true
         }
-        return NetworkServices(configuration: defaultSessionConfiguration, delegateQueue: concurrentQueue)
+        return ABNetworkServices(configuration: defaultSessionConfiguration, delegateQueue: concurrentQueue)
     }()
     
     public var currentRequest: URLRequest? {
@@ -79,7 +79,7 @@ import Foundation
                 }
             }
             DispatchQueue.main.async {
-                completion(fileURL, response, downloadFileError)
+                completion(downloadFileURL, response, downloadFileError)
             }
         }
         return downloadTask
@@ -95,7 +95,7 @@ import Foundation
     }
 }
 
-extension NetworkServices: URLSessionTaskDelegate {
+extension ABNetworkServices: URLSessionTaskDelegate {
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         

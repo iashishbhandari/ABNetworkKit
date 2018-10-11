@@ -3,28 +3,28 @@
 
 import Foundation
 
-public enum NetworkResponse {
+public enum ABNetworkResponse {
     
-    case binary(_: Data?, _: HTTPURLResponse?, _:URL?)
+    case file(_ location: URL?, _: HTTPURLResponse?)
 
     case error(_: Error?, _: HTTPURLResponse?)
 
     case json(_: Any?, _: HTTPURLResponse?)
     
-    init(_ response: (httpResponse: HTTPURLResponse?, data: Data?, error: Error?), for request: RequestProtocol) {
+    init(_ response: (httpResponse: HTTPURLResponse?, data: Data?, error: Error?), for request: ABRequestProtocol) {
         guard response.httpResponse?.statusCode == 200, response.error == nil else {
             var error = response.error
             if let errorData = response.data,
                 let statusCode = response.httpResponse?.statusCode {
-                error = NSError(domain: "", code: statusCode, userInfo: [NetworkFailingURLResponseDataErrorKey : errorData])
+                error = NSError(domain: "", code: statusCode, userInfo: [ABNetworkFailingURLResponseDataErrorKey : errorData])
             }
             self = .error(error, response.httpResponse)
             return
         }
         
         switch request.responseType {
-        case .binary:
-            self = .binary(response.data, response.httpResponse, nil)
+        case .file:
+            self = .file(nil, response.httpResponse)
         case .json:
             do {
                 if let data = response.data {

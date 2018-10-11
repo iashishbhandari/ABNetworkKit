@@ -3,68 +3,63 @@
 
 import ABNetworkKit
 
-enum SampleRequest: RequestProtocol {
+enum SampleRequest: ABRequestProtocol {
     
     case getSampleUsers
     
     case downloadSampleImage
     
-    case uploadSampleVideo
     
-    
-    var actionType: RequestAction {
+    var actionType: ABRequestAction {
         switch self {
         case .downloadSampleImage:
             return .download
         case .getSampleUsers:
             return .standard
-        case .uploadSampleVideo:
-            return .upload
         }
     }
     
     var headers: [String : String]? {
-        return ["content-type" : "application/json"]
-    }
-    
-    var method: HTTPMethod {
         switch self {
         case .downloadSampleImage:
-            return .get
-        case .getSampleUsers:
-            return .get
-        case .uploadSampleVideo:
-            return .post
+            return ["content-type" : "image/png"]
+        default:
+            return ["content-type" : "application/json"]
         }
     }
     
-    var parameters: RequestParams {
+    var method: ABHTTPMethod {
+        switch self {
+        case .downloadSampleImage:
+            return .get
+        case .getSampleUsers:
+            return .get
+        }
+    }
+    
+    var parameters: ABRequestParams {
         switch self {
         case .downloadSampleImage:
             return .url(nil)
         case .getSampleUsers:
             return .url(nil)
-        case .uploadSampleVideo:
-            return .body(["filename" : "sample.mp4"])
         }
     }
     
     var path: String {
         switch self {
         case .downloadSampleImage:
-            return "/wiki/Elizabeth_Olsen#/media/File:Elizabeth_Olsen_SDCC_2014_2_(cropped).jpg"
+            return "/400x600/000000/0011ff.png&text=hello!"
         case .getSampleUsers:
             return "/users"
-        case .uploadSampleVideo:
-            return "/upload"
         }
     }
     
-    var responseType: ResponseType {
+    var responseType: ABResponseType {
         switch self {
         case .downloadSampleImage:
-            return .binary
-        default:
+            return .file(nameWithExtension: "sample.png")
+        case .getSampleUsers:
             return .json
         }
     }

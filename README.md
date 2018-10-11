@@ -1,98 +1,98 @@
 # ABNetworkKit
 A protocol oriented approach to HTTP Networking on iOS.
 
-ABNetworkKit supports three custom data types conforming to DispatcherProtocol, OperationProtocol and RequestProtocol. It also define some NetworkTypes to encapsulate certain required informations for URL session.
+ABNetworkKit supports custom data types conforming to three protocols ABDispatcherProtocol, ABOperationProtocol and ABRequestProtocol. It also define some ABNetworkTypes to encapsulate certain required informations for a URL session.
 
 
 ## Protocols (Swift)
 
-###  NetworkDispatcher confirms to DispatcherProtocol 
+###  ABDispatcherProtocol 
 
-The `NetworkDispatcher` (open to subclass) is responsible for initiating requests and forwarding on all information directly from the URL session delegate.
+The included `ABNetworkDispatcher` (open to subclass) is responsible for initiating requests to and forwarding on all information directly from the URL session. It confirms to `ABDispatcherProtocol`
 
 ```swift
 
-public protocol DispatcherProtocol {
+public protocol ABDispatcherProtocol {
 
-    init(environment: Environment)
+    init(environment: ABEnvironment)
 
-    init(environment: Environment, 
+    init(environment: ABEnvironment, 
             configuration: URLSessionConfiguration, 
             delegateQueue: OperationQueue)
 
-    func execute(request: RequestProtocol, 
-                    completion:@escaping (NetworkResponse)->Void) 
+    func execute(request: ABRequestProtocol, 
+                    completion:@escaping (ABNetworkResponse)->Void) 
                     throws -> URLSessionTask?
 }
 
 ```
 
-###  NetworkOperation confirms to OperationProtocol 
+###  ABOperationProtocol 
 
-The `NetworkOperation` is responsible for executing and attaching requests to a NetworkDispatcher.
+A struct Operation needs to be created for attaching HTTP requests to the `ABNetworkDispatcher`. It will confirm to `ABOperationProtocol`
 
 ```swift
 
-public protocol OperationProtocol {
+public protocol ABOperationProtocol {
 
     associatedtype Output
 
-    var request: RequestProtocol { get }
+    var request: ABRequestProtocol { get }
 
     func cancel() -> Void
 
-    func execute(in dispatcher: DispatcherProtocol,
+    func execute(in dispatcher: ABDispatcherProtocol,
                     _ completion:@escaping (Output)->Void) 
                     -> Void
 }
 
 ```
 
-###  NetworkRequest confirms to RequestProtocol 
+###  ABRequestProtocol 
 
-The `NetworkRequest` is an encapsulation of all attributes and actions required for making a HTTP URLRequest. This is summoned by NetworkOperation.
+An enum Request needs to be created for encapsulation of all attributes and actions required to make an URLRequest for a URL session. It will confirm to `ABRequestProtocol`
 
 ```swift
 
-public protocol RequestProtocol {
+public protocol ABRequestProtocol {
 
-    var actionType: RequestAction       { get }
+    var actionType: ABRequestAction       { get }
 
     var headers: [String: String]?      { get }
 
-    var method: HTTPMethod              { get }
+    var method: ABHTTPMethod              { get }
 
-    var parameters: RequestParams       { get }
+    var parameters: ABRequestParams       { get }
 
     var path: String                    { get }
 
-    var responseType: ResponseType      { get }
+    var responseType: ABResponseType      { get }
 }
 
 ```
 
 ## NetworkTypes (Swift)
 
-### Environment 
+### ABEnvironment 
 
-The `Environment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all URLRequests on this network.
+The `ABEnvironment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all URLRequests on this network.
 
 ```swift
 
-public struct Environment {
+public struct ABEnvironment {
 
     public var headers: [String: String]?
 
     public var host: String
 
-    public var type: EnvironmentType
+    public var type: ABEnvironmentType
 
     init() {
         self.host = ""
         self.type = .none
     }
 
-    public init(host: String, type: EnvironmentType) {
+    public init(host: String, type: ABEnvironmentType) {
         self.host = host
         self.type = type
     }
@@ -100,13 +100,13 @@ public struct Environment {
 
 ```
 
-### EnvironmentType 
+### ABEnvironmentType 
 
-The `EnvironmentType` supports type `custom` for replacing the host address of a particular URLRequest (e.g CDN address),  type `development` for logging network calls and type `production` for LIVE server APIs.
+The `ABEnvironmentType` supports type `custom` for replacing the host address of a particular URLRequest (e.g CDN address),  type `development` for logging network calls and type `production` for LIVE server APIs.
 
 ```swift
 
-public enum EnvironmentType {
+public enum ABEnvironmentType {
 
     case custom(String)
 
@@ -117,13 +117,13 @@ public enum EnvironmentType {
 
 ```
 
-### HTTPMethod
+### ABHTTPMethod
 
-The `HTTPMethod` enumeration lists the HTTP Methods for RESTful APIs.
+The `ABHTTPMethod` enumeration lists the HTTP Methods for RESTful APIs.
 
 ```swift
 
-public enum HTTPMethod: String {
+public enum ABHTTPMethod: String {
 
     case delete = "DELETE"
 
@@ -138,13 +138,13 @@ public enum HTTPMethod: String {
 
 ```
 
-### RequestAction 
+### ABRequestAction 
 
-The `RequestAction` represents kind of URLRequest actions.
+The `ABRequestAction` represents kind of URLRequest actions.
 
 ```swift
 
-public enum RequestAction {
+public enum ABRequestAction {
 
     case download
 
@@ -157,11 +157,11 @@ public enum RequestAction {
 
 ### RequestParams 
 
-The `RequestParams` represents URLRequest parameters url for GET and body for POST requests.
+The `ABRequestParams` represents URLRequest parameters url for GET and body for POST requests.
 
 ```swift
 
-public enum RequestParams {
+public enum ABRequestParams {
 
     case body(_ : [String: Any]?)
 
@@ -172,11 +172,11 @@ public enum RequestParams {
 
 ### ResponseType 
 
-The `ResponseType`  represents the supported HTTP Response types.
+The `ABResponseType`  represents the supported HTTP Response types.
 
 ```swift
 
-public enum ResponseType {
+public enum ABResponseType {
 
     case binary
 
@@ -187,11 +187,11 @@ public enum ResponseType {
 
 ### NetworkResponse 
 
-The `NetworkResponse` handler for converting HTTP Response to corresponding `ResponseType`
+The `ABNetworkResponse` handler for converting HTTP Response to corresponding `ABResponseType`
 
 ```swift
 
-enum NetworkResponse {
+enum ABNetworkResponse {
 
     case binary(_: Data?, _: HTTPURLResponse?)
 

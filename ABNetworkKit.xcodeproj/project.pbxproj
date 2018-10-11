@@ -9,28 +9,29 @@
 /* Begin PBXBuildFile section */
 		A100AF15216C8E8600C68E9D /* Usage.md in Resources */ = {isa = PBXBuildFile; fileRef = A100AF14216C8E8600C68E9D /* Usage.md */; };
 		A1465BA1215F854A0022C635 /* ABNetworkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1465B9F215F854A0022C635 /* ABNetworkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A1465BAC215F85B30022C635 /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BA8215F85B20022C635 /* NetworkServices.swift */; };
-		A1465BAD215F85B30022C635 /* NetworkSecurityPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BA9215F85B20022C635 /* NetworkSecurityPolicy.swift */; };
-		A1465BAF215F85B30022C635 /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BAB215F85B30022C635 /* NetworkDispatcher.swift */; };
+		A1465BAC215F85B30022C635 /* ABNetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BA8215F85B20022C635 /* ABNetworkServices.swift */; };
+		A1465BAD215F85B30022C635 /* ABNetworkSecurityPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BA9215F85B20022C635 /* ABNetworkSecurityPolicy.swift */; };
+		A1465BAF215F85B30022C635 /* ABNetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BAB215F85B30022C635 /* ABNetworkDispatcher.swift */; };
 		A1465BC1215F87BC0022C635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BC0215F87BC0022C635 /* AppDelegate.swift */; };
 		A1465BC3215F87BC0022C635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BC2215F87BC0022C635 /* ViewController.swift */; };
 		A1465BC6215F87BC0022C635 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1465BC4215F87BC0022C635 /* Main.storyboard */; };
 		A1465BC8215F87C60022C635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1465BC7215F87C60022C635 /* Assets.xcassets */; };
 		A1465BCB215F87C60022C635 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1465BC9215F87C60022C635 /* LaunchScreen.storyboard */; };
-		A1465BF6215F8BA00022C635 /* DispatcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF2215F8BA00022C635 /* DispatcherProtocol.swift */; };
-		A1465BF7215F8BA00022C635 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF3215F8BA00022C635 /* RequestProtocol.swift */; };
-		A1465BF8215F8BA00022C635 /* OperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF4215F8BA00022C635 /* OperationProtocol.swift */; };
+		A1465BF6215F8BA00022C635 /* ABDispatcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */; };
+		A1465BF7215F8BA00022C635 /* ABRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */; };
+		A1465BF8215F8BA00022C635 /* ABOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */; };
+		A1BB4B61216F31A3005A0A5B /* flow.png in Resources */ = {isa = PBXBuildFile; fileRef = A1BB4B5F216F31A2005A0A5B /* flow.png */; };
+		A1BB4B62216F31A3005A0A5B /* ABNetworkKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */; };
 		A1C54456216B3AE500B665C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A1C54454216B3AE500B665C4 /* LICENSE */; };
 		A1C54457216B3AE500B665C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A1C54455216B3AE500B665C4 /* README.md */; };
 		A1C5445A216B808100B665C4 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C54459216B808100B665C4 /* SampleUser.swift */; };
-		A1CFD65C216DD92500A34845 /* BackgroundDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CFD65B216DD92500A34845 /* BackgroundDispatcher.swift */; };
-		A1CFD660216E07BB00A34845 /* flow.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CFD65F216E07BB00A34845 /* flow.png */; };
+		A1CFD65C216DD92500A34845 /* SampleDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CFD65B216DD92500A34845 /* SampleDispatcher.swift */; };
 		A1DA3B042169F77D00DC9019 /* SampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA3B032169F77D00DC9019 /* SampleRequest.swift */; };
 		A1DA3B062169F78E00DC9019 /* SampleOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA3B052169F78E00DC9019 /* SampleOperation.swift */; };
 		A1DA3B34216A147600DC9019 /* ABNetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1465B9C215F854A0022C635 /* ABNetworkKit.framework */; };
 		A1DA3B35216A147600DC9019 /* ABNetworkKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1465B9C215F854A0022C635 /* ABNetworkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A1EBA3DF2168DD9B00265C16 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBA3DD2168DD9B00265C16 /* NetworkResponse.swift */; };
-		A1EBA3E02168DD9B00265C16 /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBA3DE2168DD9B00265C16 /* NetworkTypes.swift */; };
+		A1EBA3DF2168DD9B00265C16 /* ABNetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBA3DD2168DD9B00265C16 /* ABNetworkResponse.swift */; };
+		A1EBA3E02168DD9B00265C16 /* ABNetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBA3DE2168DD9B00265C16 /* ABNetworkTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +63,9 @@
 		A1465B9C215F854A0022C635 /* ABNetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ABNetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1465B9F215F854A0022C635 /* ABNetworkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABNetworkKit.h; sourceTree = "<group>"; };
 		A1465BA0215F854A0022C635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1465BA8215F85B20022C635 /* NetworkServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServices.swift; sourceTree = "<group>"; };
-		A1465BA9215F85B20022C635 /* NetworkSecurityPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSecurityPolicy.swift; sourceTree = "<group>"; };
-		A1465BAB215F85B30022C635 /* NetworkDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
+		A1465BA8215F85B20022C635 /* ABNetworkServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABNetworkServices.swift; sourceTree = "<group>"; };
+		A1465BA9215F85B20022C635 /* ABNetworkSecurityPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABNetworkSecurityPolicy.swift; sourceTree = "<group>"; };
+		A1465BAB215F85B30022C635 /* ABNetworkDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABNetworkDispatcher.swift; sourceTree = "<group>"; };
 		A1465BBE215F87BC0022C635 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1465BC0215F87BC0022C635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1465BC2215F87BC0022C635 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,18 +73,19 @@
 		A1465BC7215F87C60022C635 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1465BCA215F87C60022C635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1465BCC215F87C60022C635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1465BF2215F8BA00022C635 /* DispatcherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherProtocol.swift; sourceTree = "<group>"; };
-		A1465BF3215F8BA00022C635 /* RequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
-		A1465BF4215F8BA00022C635 /* OperationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationProtocol.swift; sourceTree = "<group>"; };
+		A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABDispatcherProtocol.swift; sourceTree = "<group>"; };
+		A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABRequestProtocol.swift; sourceTree = "<group>"; };
+		A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABOperationProtocol.swift; sourceTree = "<group>"; };
+		A1BB4B5F216F31A2005A0A5B /* flow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flow.png; sourceTree = "<group>"; };
+		A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABNetworkKit.podspec; sourceTree = "<group>"; };
 		A1C54454216B3AE500B665C4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		A1C54455216B3AE500B665C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A1C54459216B808100B665C4 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
-		A1CFD65B216DD92500A34845 /* BackgroundDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDispatcher.swift; sourceTree = "<group>"; };
-		A1CFD65F216E07BB00A34845 /* flow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flow.png; sourceTree = "<group>"; };
+		A1CFD65B216DD92500A34845 /* SampleDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleDispatcher.swift; sourceTree = "<group>"; };
 		A1DA3B032169F77D00DC9019 /* SampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleRequest.swift; sourceTree = "<group>"; };
 		A1DA3B052169F78E00DC9019 /* SampleOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleOperation.swift; sourceTree = "<group>"; };
-		A1EBA3DD2168DD9B00265C16 /* NetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
-		A1EBA3DE2168DD9B00265C16 /* NetworkTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTypes.swift; sourceTree = "<group>"; };
+		A1EBA3DD2168DD9B00265C16 /* ABNetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABNetworkResponse.swift; sourceTree = "<group>"; };
+		A1EBA3DE2168DD9B00265C16 /* ABNetworkTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABNetworkTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,11 +139,11 @@
 			isa = PBXGroup;
 			children = (
 				A1465BF0215F8BA00022C635 /* Protocols */,
-				A1465BAB215F85B30022C635 /* NetworkDispatcher.swift */,
-				A1EBA3DD2168DD9B00265C16 /* NetworkResponse.swift */,
-				A1465BA9215F85B20022C635 /* NetworkSecurityPolicy.swift */,
-				A1465BA8215F85B20022C635 /* NetworkServices.swift */,
-				A1EBA3DE2168DD9B00265C16 /* NetworkTypes.swift */,
+				A1465BAB215F85B30022C635 /* ABNetworkDispatcher.swift */,
+				A1EBA3DD2168DD9B00265C16 /* ABNetworkResponse.swift */,
+				A1465BA9215F85B20022C635 /* ABNetworkSecurityPolicy.swift */,
+				A1465BA8215F85B20022C635 /* ABNetworkServices.swift */,
+				A1EBA3DE2168DD9B00265C16 /* ABNetworkTypes.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -167,9 +169,9 @@
 		A1465BF0215F8BA00022C635 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A1465BF2215F8BA00022C635 /* DispatcherProtocol.swift */,
-				A1465BF4215F8BA00022C635 /* OperationProtocol.swift */,
-				A1465BF3215F8BA00022C635 /* RequestProtocol.swift */,
+				A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */,
+				A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */,
+				A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -177,7 +179,8 @@
 		A1C54453216B3AB200B665C4 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
-				A1CFD65F216E07BB00A34845 /* flow.png */,
+				A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */,
+				A1BB4B5F216F31A2005A0A5B /* flow.png */,
 				A1C54454216B3AE500B665C4 /* LICENSE */,
 				A1C54455216B3AE500B665C4 /* README.md */,
 				A100AF14216C8E8600C68E9D /* Usage.md */,
@@ -200,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				A1465BC0215F87BC0022C635 /* AppDelegate.swift */,
-				A1CFD65B216DD92500A34845 /* BackgroundDispatcher.swift */,
+				A1CFD65B216DD92500A34845 /* SampleDispatcher.swift */,
 				A1DA3B052169F78E00DC9019 /* SampleOperation.swift */,
 				A1DA3B032169F77D00DC9019 /* SampleRequest.swift */,
 				A1C54459216B808100B665C4 /* SampleUser.swift */,
@@ -304,9 +307,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A100AF15216C8E8600C68E9D /* Usage.md in Resources */,
+				A1BB4B62216F31A3005A0A5B /* ABNetworkKit.podspec in Resources */,
 				A1C54457216B3AE500B665C4 /* README.md in Resources */,
 				A1C54456216B3AE500B665C4 /* LICENSE in Resources */,
-				A1CFD660216E07BB00A34845 /* flow.png in Resources */,
+				A1BB4B61216F31A3005A0A5B /* flow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,14 +331,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1465BAD215F85B30022C635 /* NetworkSecurityPolicy.swift in Sources */,
-				A1465BF6215F8BA00022C635 /* DispatcherProtocol.swift in Sources */,
-				A1EBA3DF2168DD9B00265C16 /* NetworkResponse.swift in Sources */,
-				A1465BF8215F8BA00022C635 /* OperationProtocol.swift in Sources */,
-				A1EBA3E02168DD9B00265C16 /* NetworkTypes.swift in Sources */,
-				A1465BF7215F8BA00022C635 /* RequestProtocol.swift in Sources */,
-				A1465BAC215F85B30022C635 /* NetworkServices.swift in Sources */,
-				A1465BAF215F85B30022C635 /* NetworkDispatcher.swift in Sources */,
+				A1465BAD215F85B30022C635 /* ABNetworkSecurityPolicy.swift in Sources */,
+				A1465BF6215F8BA00022C635 /* ABDispatcherProtocol.swift in Sources */,
+				A1EBA3DF2168DD9B00265C16 /* ABNetworkResponse.swift in Sources */,
+				A1465BF8215F8BA00022C635 /* ABOperationProtocol.swift in Sources */,
+				A1EBA3E02168DD9B00265C16 /* ABNetworkTypes.swift in Sources */,
+				A1465BF7215F8BA00022C635 /* ABRequestProtocol.swift in Sources */,
+				A1465BAC215F85B30022C635 /* ABNetworkServices.swift in Sources */,
+				A1465BAF215F85B30022C635 /* ABNetworkDispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +350,7 @@
 				A1465BC1215F87BC0022C635 /* AppDelegate.swift in Sources */,
 				A1DA3B042169F77D00DC9019 /* SampleRequest.swift in Sources */,
 				A1DA3B062169F78E00DC9019 /* SampleOperation.swift in Sources */,
-				A1CFD65C216DD92500A34845 /* BackgroundDispatcher.swift in Sources */,
+				A1CFD65C216DD92500A34845 /* SampleDispatcher.swift in Sources */,
 				A1C5445A216B808100B665C4 /* SampleUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

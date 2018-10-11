@@ -8,23 +8,30 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    private let backgroundDispatcher = BackgroundDispatcher()
-    
-    private let dispatcher = NetworkDispatcher(environment: Environment(host: "https://jsonplaceholder.typicode.com", type: .development))
+    private let dispatcher = SampleDispatcher()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         dispatcher.securityPolicy.allowInvalidCertificates = true
-    }
-    
-    @IBAction func onTapFetchBtn(_ sender: Any) {
         fetchSampleUsers()
     }
     
+    @IBAction func onTapFetchBtn(_ sender: Any) {
+        if let btn = sender as? UIButton {
+            btn.isHidden = true
+        }
+        dispatcher.environmentType = .custom(host: "https://dummyimage.com")
+        downloadSampleImage()
+    }
+    
     private func downloadSampleImage() {
-        SampleOperation(SampleRequest.downloadSampleImage).execute(in: backgroundDispatcher) { [weak self] (response) in
-            if let location = response.1, let data = try? Data(contentsOf: location) {
-                self?.imageView.image = UIImage(data: data)
+        SampleOperation(SampleRequest.downloadSampleImage).execute(in: dispatcher) { [weak self] (response) in
+            if let location = response.1 {
+                self?.imageView.image = UIImage(contentsOfFile: location.path)
+                self?.imageView.contentMode = .scaleAspectFill
+                self?.showAlert(message: "Image downloaded successfully!")
+            } else if let error = response.2 {
+                self?.showAlert(message: error.localizedDescription)
             }
         }
     }
@@ -44,7 +51,7 @@ class ViewController: UIViewController {
     }
     
     private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
         }))
         self.present(alert, animated: true, completion: nil)

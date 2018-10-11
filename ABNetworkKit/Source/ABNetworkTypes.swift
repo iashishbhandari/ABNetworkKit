@@ -1,37 +1,37 @@
 // MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
 
 
-public let NetworkFailingURLResponseDataErrorKey = "FailingURLResponseDataErrorKey"
+public let ABNetworkFailingURLResponseDataErrorKey = "FailingURLResponseDataErrorKey"
 
-public struct Environment {
+public struct ABEnvironment {
     
     public var headers: [String: String]?
     
     public var host: String
     
-    public var type: EnvironmentType
+    public var type: ABEnvironmentType
     
     init() {
         self.host = ""
-        self.type = .custom("")
+        self.type = .custom(host: "")
     }
     
-    public init(host: String, type: EnvironmentType) {
+    public init(host: String, type: ABEnvironmentType) {
         self.host = host
         self.type = type
     }
 }
 
-public enum EnvironmentType {
+public enum ABEnvironmentType {
     
-    case custom(String)
+    case custom(host: String)
 
     case development
     
     case production
 }
 
-public enum HTTPMethod: String {
+public enum ABHTTPMethod: String {
     
     case delete = "DELETE"
     
@@ -44,7 +44,7 @@ public enum HTTPMethod: String {
     case put    = "PUT"
 }
 
-internal enum NetworkError: Error {
+internal enum ABNetworkError: Error {
     
     case badInput
     
@@ -53,7 +53,7 @@ internal enum NetworkError: Error {
     case noData
 }
 
-public enum RequestAction {
+public enum ABRequestAction {
     
     case download
     
@@ -62,21 +62,21 @@ public enum RequestAction {
     case upload
 }
 
-public enum RequestParams {
+public enum ABRequestParams {
     
     case body(_ : [String: Any]?)
     
     case url(_ : [String: Any]?)
 }
 
-public enum ResponseType {
+public enum ABResponseType {
     
-    case binary
+    case file(nameWithExtension: String)
     
     case json
 }
 
-internal enum SSLPinningMode {
+internal enum ABSSLPinningMode {
     
     case certificate
     
