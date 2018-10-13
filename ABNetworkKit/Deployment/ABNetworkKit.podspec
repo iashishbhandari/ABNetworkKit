@@ -11,8 +11,7 @@ s.source = { :git => 'https://github.com/iashishbhandari/ABNetworkKit.git', :tag
 s.swift_version = '4.2'
 s.ios.deployment_target = '9.0'
 
-s.source_files = 'Source/*.swift'
-s.source_files = 'Source/Protocols/*.swift'
+s.source_files = 'ABNetworkKit/**/*.{swift}'
 
 s.framework = 'Foundation'
 end

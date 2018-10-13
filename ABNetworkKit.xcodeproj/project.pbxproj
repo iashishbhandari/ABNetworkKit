@@ -128,7 +128,6 @@
 		A1465B9E215F854A0022C635 /* ABNetworkKit */ = {
 			isa = PBXGroup;
 			children = (
-				A19A3F9A21721B92003067B9 /* ABNetworkKit.podspec */,
 				A1C54453216B3AB200B665C4 /* Deployment */,
 				A1465BA7215F857D0022C635 /* Source */,
 				A1465BB9215F86230022C635 /* Supporting Files */,
@@ -180,6 +179,7 @@
 		A1C54453216B3AB200B665C4 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				A19A3F9A21721B92003067B9 /* ABNetworkKit.podspec */,
 				A1BB4B5F216F31A2005A0A5B /* flow.png */,
 				A1C54454216B3AE500B665C4 /* LICENSE */,
 				A1C54455216B3AE500B665C4 /* README.md */,
