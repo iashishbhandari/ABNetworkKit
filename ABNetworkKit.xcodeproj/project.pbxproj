@@ -21,8 +21,8 @@
 		A1465BF6215F8BA00022C635 /* ABDispatcherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */; };
 		A1465BF7215F8BA00022C635 /* ABRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */; };
 		A1465BF8215F8BA00022C635 /* ABOperationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */; };
+		A19A3F9B21721B92003067B9 /* ABNetworkKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A19A3F9A21721B92003067B9 /* ABNetworkKit.podspec */; };
 		A1BB4B61216F31A3005A0A5B /* flow.png in Resources */ = {isa = PBXBuildFile; fileRef = A1BB4B5F216F31A2005A0A5B /* flow.png */; };
-		A1BB4B62216F31A3005A0A5B /* ABNetworkKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */; };
 		A1C54456216B3AE500B665C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A1C54454216B3AE500B665C4 /* LICENSE */; };
 		A1C54457216B3AE500B665C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A1C54455216B3AE500B665C4 /* README.md */; };
 		A1C5445A216B808100B665C4 /* SampleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C54459216B808100B665C4 /* SampleUser.swift */; };
@@ -77,8 +77,8 @@
 		A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABDispatcherProtocol.swift; sourceTree = "<group>"; };
 		A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABRequestProtocol.swift; sourceTree = "<group>"; };
 		A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABOperationProtocol.swift; sourceTree = "<group>"; };
+		A19A3F9A21721B92003067B9 /* ABNetworkKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABNetworkKit.podspec; sourceTree = "<group>"; };
 		A1BB4B5F216F31A2005A0A5B /* flow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flow.png; sourceTree = "<group>"; };
-		A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ABNetworkKit.podspec; sourceTree = "<group>"; };
 		A1C54454216B3AE500B665C4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		A1C54455216B3AE500B665C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A1C54459216B808100B665C4 /* SampleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleUser.swift; sourceTree = "<group>"; };
@@ -128,6 +128,7 @@
 		A1465B9E215F854A0022C635 /* ABNetworkKit */ = {
 			isa = PBXGroup;
 			children = (
+				A19A3F9A21721B92003067B9 /* ABNetworkKit.podspec */,
 				A1C54453216B3AB200B665C4 /* Deployment */,
 				A1465BA7215F857D0022C635 /* Source */,
 				A1465BB9215F86230022C635 /* Supporting Files */,
@@ -179,7 +180,6 @@
 		A1C54453216B3AB200B665C4 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
-				A1BB4B60216F31A3005A0A5B /* ABNetworkKit.podspec */,
 				A1BB4B5F216F31A2005A0A5B /* flow.png */,
 				A1C54454216B3AE500B665C4 /* LICENSE */,
 				A1C54455216B3AE500B665C4 /* README.md */,
@@ -307,7 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A100AF15216C8E8600C68E9D /* Usage.md in Resources */,
-				A1BB4B62216F31A3005A0A5B /* ABNetworkKit.podspec in Resources */,
+				A19A3F9B21721B92003067B9 /* ABNetworkKit.podspec in Resources */,
 				A1C54457216B3AE500B665C4 /* README.md in Resources */,
 				A1C54456216B3AE500B665C4 /* LICENSE in Resources */,
 				A1BB4B61216F31A3005A0A5B /* flow.png in Resources */,

@@ -6,7 +6,7 @@ s.homepage = 'https://github.com/iashishbhandari'
 s.license  = 'MIT'
 s.author = { 'Ashish Bhandari' => 'ashishbhandariplus@gmail.com' }
 s.platform = :ios
-s.source = { :git => 'https://github.com/iashishbhandari/ABNetworkKit.git', :tag => 'v0.1.0'}
+s.source = { :git => 'https://github.com/iashishbhandari/ABNetworkKit.git', :tag => '0.1.0'}
 
 s.swift_version = '4.2'
 s.ios.deployment_target = '9.0'
