@@ -56,17 +56,17 @@ A Request enumeration needs to be created for encapsulation of all attributes an
 
 public protocol ABRequestProtocol {
 
-    var actionType: ABRequestAction       { get }
+    var actionType: ABRequestAction         { get }
 
-    var headers: [String: String]?      { get }
+    var headers: [String: String]?          { get }
 
-    var method: ABHTTPMethod              { get }
+    var method: ABHTTPMethod                { get }
 
-    var parameters: ABRequestParams       { get }
+    var parameters: ABRequestParams         { get }
 
-    var path: String                    { get }
+    var path: String                        { get }
 
-    var responseType: ABResponseType      { get }
+    var responseType: ABResponseType        { get }
 }
 
 ```
