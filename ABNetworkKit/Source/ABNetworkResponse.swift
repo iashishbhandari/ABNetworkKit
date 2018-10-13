@@ -5,7 +5,7 @@ import Foundation
 
 public enum ABNetworkResponse {
     
-    case file(_ location: URL?, _: HTTPURLResponse?)
+    case file(location: URL?, _: HTTPURLResponse?)
 
     case error(_: Error?, _: HTTPURLResponse?)
 
@@ -23,8 +23,8 @@ public enum ABNetworkResponse {
         }
         
         switch request.responseType {
-        case .file:
-            self = .file(nil, response.httpResponse)
+        case .file(_):
+            self = .file(location: .none, response.httpResponse)
         case .json:
             do {
                 if let data = response.data {

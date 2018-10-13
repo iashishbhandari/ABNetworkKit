@@ -6,30 +6,27 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
-    private let dispatcher = SampleDispatcher()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dispatcher.securityPolicy.allowInvalidCertificates = true
-        fetchSampleUsers()
-    }
-    
     @IBAction func onTapFetchBtn(_ sender: Any) {
-        if let btn = sender as? UIButton {
+        if let btn = sender as? UIButton, btn.titleLabel?.text == "Download Sample Image" {
             btn.isHidden = true
+            downloadSampleImage()
+        } else {
+            fetchSampleUsers()
         }
-        dispatcher.environmentType = .custom(host: "https://dummyimage.com")
-        downloadSampleImage()
     }
     
     private func downloadSampleImage() {
-        SampleOperation(SampleRequest.downloadSampleImage).execute(in: dispatcher) { [weak self] (response) in
+        SampleOperation(SampleRequest.downloadSampleImage(progresshandler: { (fractionCompleted, fileSizeInfo) in
+            print("Progress: ", "\(fractionCompleted*100)% of \(fileSizeInfo)")
+            
+        })).execute(in: BackgroundDispatcher()) { [weak self] ( response ) in
             if let location = response.1 {
                 self?.imageView.image = UIImage(contentsOfFile: location.path)
                 self?.imageView.contentMode = .scaleAspectFill
-                self?.showAlert(message: "Image downloaded successfully!")
+                print("Image downloaded successfully!")
             } else if let error = response.2 {
                 self?.showAlert(message: error.localizedDescription)
             }
@@ -37,11 +34,12 @@ class ViewController: UIViewController {
     }
     
     private func fetchSampleUsers() {
-        SampleOperation(SampleRequest.getSampleUsers).execute(in: dispatcher) { [weak self] (response) in
+        SampleOperation(SampleRequest.getSampleUsers).execute(in: SampleDispatcher()) { [weak self] ( response ) in
             if let users = response.0, !users.isEmpty {
                 for user in users {
                     print(user)
                 }
+                self?.button.setTitle("Download Sample Image", for: .normal)
                 self?.showAlert(message: "Data fetched successfully!")
                 
             } else if let error = response.2 {

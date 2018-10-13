@@ -7,13 +7,13 @@ enum SampleRequest: ABRequestProtocol {
     
     case getSampleUsers
     
-    case downloadSampleImage
+    case downloadSampleImage(progresshandler: (Float, String)->Void)
     
     
     var actionType: ABRequestAction {
         switch self {
-        case .downloadSampleImage:
-            return .download
+        case .downloadSampleImage(let progresshandler):
+            return .download(withProgressHandler: progresshandler)
         case .getSampleUsers:
             return .standard
         }

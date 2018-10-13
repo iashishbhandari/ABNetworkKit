@@ -55,7 +55,7 @@ internal enum ABNetworkError: Error {
 
 public enum ABRequestAction {
     
-    case download
+    case download(withProgressHandler: ((Float, String)->Void)?)
     
     case standard
     

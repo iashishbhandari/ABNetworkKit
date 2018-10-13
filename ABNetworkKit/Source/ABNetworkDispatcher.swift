@@ -54,18 +54,28 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
                         self?.log("Destination file URL ⚠️ \(fileURL.absoluteString)")
                         return  fileURL
                         
-                        }, with: { [weak self] (fileURL, urlResponse, error) in
+                        }, progressHandler: { [weak self] (fractionCompleted, fileSizeInfo) in
+                            self?.log("Received progress ⏳ ", "\(fractionCompleted*100)%")
+                            switch request.actionType {
+                            case .download(let progressHandler):
+                                progressHandler?(fractionCompleted, fileSizeInfo)
+                            case .standard, .upload:
+                                break
+                            }
+                            
+                        }, completionHandler: { [weak self] (fileURL, urlResponse, error) in
                             self?.log("Received response 👍 ", urlResponse)
                             if let _ = error {
                                 completion(ABNetworkResponse.error(error, urlResponse as? HTTPURLResponse))
                             } else {
-                                completion(ABNetworkResponse.file(fileURL, urlResponse as? HTTPURLResponse))
+                                completion(ABNetworkResponse.file(location: fileURL, urlResponse as? HTTPURLResponse))
                             }
                     })
                     task?.resume()
                     
                 case .json:
                     log("DownloadTask needs a file location ⚠️ ")
+                    completion(ABNetworkResponse.error(ABNetworkError.badInput, nil))
                 }
                 
                 
@@ -98,11 +108,10 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
     private func prepareURLRequest(for request: ABRequestProtocol) throws -> URLRequest {
 
         switch environmentType {
-            
         case .custom(let hostPath):
             environment.host = hostPath
-            
-        default: break
+        default:
+            break
         }
         
         let url_string = environment.host + request.path
@@ -154,11 +163,10 @@ extension ABNetworkDispatcher {
     public func log(_ entry: Any? ...) {
         
         switch environment.type {
-            
         case .development:
             print("DISPATCHER ☞ ", entry.filter { $0 != nil }.map { $0! })
-            
-        default: break
+        default:
+            break
         }
     }
 }

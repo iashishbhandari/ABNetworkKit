@@ -85,7 +85,7 @@ The `ABNetworkResponse` handler for converting HTTP Response to corresponding `R
 
 enum ABNetworkResponse {
 
-    case binary(_: Data?, _: HTTPURLResponse?)
+    case file(location: URL?, _: HTTPURLResponse?)
 
     case error(_: Error?, _: HTTPURLResponse?)
 
@@ -124,7 +124,7 @@ Authentication is handled on the system framework level by [`URLAuthenticationCh
 
 ### NetworkSecurityPolicy
 
-The `evaluateServerTrust` method on a `URLRequest` will automatically provide a `URLCredential` to a `URLAuthenticationChallenge` when appropriate based on user defined `ABSSLPinningMode` policy:
+The `evaluateServerTrust` method on the `NetworkSecurityPolicy` will automatically provide a `URLCredential` to a `URLAuthenticationChallenge` when appropriate based on a user defined `ABSSLPinningMode` policy:
 
 ```swift
 

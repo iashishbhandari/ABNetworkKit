@@ -13,6 +13,10 @@ import Foundation
     
     open var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, URLResponse, URLRequest)->URLRequest)?
     
+    public var currentRequest: URLRequest? {
+        return request
+    }
+    
     public static let defaultSharedServices: ABNetworkServices = {
         let concurrentQueue = OperationQueue()
         concurrentQueue.maxConcurrentOperationCount = 3
@@ -25,12 +29,10 @@ import Foundation
         return ABNetworkServices(configuration: defaultSessionConfiguration, delegateQueue: concurrentQueue)
     }()
     
-    public var currentRequest: URLRequest? {
-        return request
-    }
-    
     private var request: URLRequest?
     
+    private var downloadTaskFileLocationWithHandlers: ( ((URL, URLResponse?)->URL)?, ((Float, String)->Void)?, ((URL?, URLResponse?, Error?)->Void)? )
+
     private override init() {
         super.init()
     }
@@ -61,28 +63,11 @@ import Foundation
         return dataTask
     }
     
-    open func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, with completion: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask? {
+    open func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, progressHandler: @escaping (Float, String)->Void, completionHandler: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask? {
         
         self.request = request
-        let downloadTask = session?.downloadTask(with: request) { (fileURL, response, error) in
-            var downloadFileURL: URL?
-            var downloadFileError = error
-            if let location = fileURL,
-                let response = response {
-                downloadFileURL = destination(location, response)
-                if let downloadFileURL = downloadFileURL {
-                    do {
-                        try FileManager.default.moveItem(at: location, to: downloadFileURL)
-                    } catch {
-                        downloadFileError = error
-                    }
-                }
-            }
-            DispatchQueue.main.async {
-                completion(downloadFileURL, response, downloadFileError)
-            }
-        }
-        return downloadTask
+        self.downloadTaskFileLocationWithHandlers = (destination, progressHandler, completionHandler)
+        return session?.downloadTask(with: request)
     }
     
     open func uploadTask(for request: URLRequest, fromFile fileURL: URL, completion: @escaping (Data?, URLResponse?, Error?)->Void) -> URLSessionUploadTask? {
@@ -131,5 +116,36 @@ extension ABNetworkServices: URLSessionTaskDelegate {
             }
         }
         completionHandler(disposition, credential)
+    }
+}
+
+extension ABNetworkServices: URLSessionDownloadDelegate {
+
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        var downloadFileURL: URL?
+        var downloadFileError: Error?
+        if let destination = downloadTaskFileLocationWithHandlers.0 {
+            downloadFileURL = destination(location, downloadTask.response)
+            if let downloadFileURL = downloadFileURL {
+                do {
+                    try FileManager.default.moveItem(at: location, to: downloadFileURL)
+                } catch {
+                    downloadFileError = error
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            self.downloadTaskFileLocationWithHandlers.2?(downloadFileURL, downloadTask.response, downloadFileError)
+        }
+    }
+    
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        if let handler = self.downloadTaskFileLocationWithHandlers.1 {
+            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            let totalSize = ByteCountFormatter.string(fromByteCount: totalBytesExpectedToWrite, countStyle: .file)
+            DispatchQueue.main.async {
+                handler(progress, totalSize)
+            }
+        }
     }
 }
