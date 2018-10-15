@@ -1,7 +1,7 @@
 # ABNetworkKit
 A protocol oriented approach to HTTP Networking on iOS.
 
-ABNetworkKit is a facade of three type-safe Swift constructs: class, struct and enum that conform to `ABDispatcherProtocol`, `ABOperationProtocol` and `ABRequestProtocol` respectively. It uses Foundation's URL Loading System to interact with URLs and communicate with servers using standard Internet protocols. It defines `ABNetworkTypes` to encapsulate request information, for establishing a URL session and asynchonously handles the incoming data or errors to user defined `NetworkResponse`
+ABNetworkKit is a facade of three type-safe Swift constructs: class, struct and enum that conform to `ABDispatcherProtocol`, `ABOperationProtocol` and `ABRequestProtocol` respectively. It uses Foundation's URL Loading System to interact with URLs and communicate with servers using standard Internet protocols. It defines `ABNetworkTypes` to encapsulate request information, for establishing a URL session and handles the incoming data or errors asynchronously to user defined `NetworkResponse`
 
 
 ## Protocols (Swift)
