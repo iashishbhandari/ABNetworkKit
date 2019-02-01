@@ -11,7 +11,7 @@ public enum ABNetworkResponse {
 
     case json(_: Any?, _: HTTPURLResponse?)
     
-    init(_ response: (httpResponse: HTTPURLResponse?, data: Data?, error: Error?), for request: ABRequestProtocol) {
+    init(_ response: (httpResponse: HTTPURLResponse?, data: Any?, error: Error?), for request: ABRequestProtocol) {
         guard response.httpResponse?.statusCode == 200, response.error == nil else {
             var error = response.error
             if let errorData = response.data,
@@ -27,7 +27,7 @@ public enum ABNetworkResponse {
             self = .file(location: .none, response.httpResponse)
         case .json:
             do {
-                if let data = response.data {
+                if let data = response.data as? Data {
                     self =  try .json(JSONSerialization.jsonObject(with: data, options: .mutableContainers), response.httpResponse)
                 } else {
                     self = .json(response.data, response.httpResponse)

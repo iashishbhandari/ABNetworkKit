@@ -3,9 +3,7 @@
 
 public protocol ABDispatcherProtocol {
     
-    init(environment: ABEnvironment)
-    
-    init(environment: ABEnvironment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue)
+    init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?)
     
     func execute(request: ABRequestProtocol, completion:@escaping (ABNetworkResponse)->Void) throws -> URLSessionTask?
 }

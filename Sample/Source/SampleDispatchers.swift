@@ -10,17 +10,13 @@ class SampleDispatcher: ABNetworkDispatcher {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 2
         queue.qualityOfService = .userInitiated
-        self.init(environment: env, configuration: .default, delegateQueue: queue)
+        let services = ABNetworkServices.init(configuration: .default, delegateQueue: queue)
+        services.securityPolicy.allowInvalidCertificates = true
+        self.init(environment: env, networkServices: services)
     }
     
-    required init(environment: ABEnvironment) {
-        super.init(environment: environment)
-        self.securityPolicy.allowInvalidCertificates = true
-    }
-    
-    required init(environment: ABEnvironment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
-        super.init(environment: environment, configuration: configuration, delegateQueue: delegateQueue)
-        self.securityPolicy.allowInvalidCertificates = true
+    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?) {
+        super.init(environment: environment, networkServices: networkServices)
     }
 }
 
@@ -33,16 +29,12 @@ class BackgroundDispatcher: ABNetworkDispatcher {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
         queue.qualityOfService = .userInitiated
-        self.init(environment: env, configuration: config, delegateQueue: queue)
+        let services = ABNetworkServices(configuration: config, delegateQueue: queue)
+        services.securityPolicy.allowInvalidCertificates = true
+        self.init(environment: env, networkServices: services)
     }
     
-    required init(environment: ABEnvironment) {
-        super.init(environment: environment)
-        self.securityPolicy.allowInvalidCertificates = true
-    }
-    
-    required init(environment: ABEnvironment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
-        super.init(environment: environment, configuration: configuration, delegateQueue: delegateQueue)
-        self.securityPolicy.allowInvalidCertificates = true
+    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?) {
+        super.init(environment: environment, networkServices: networkServices)
     }
 }

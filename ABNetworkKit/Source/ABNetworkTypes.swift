@@ -7,9 +7,9 @@ public struct ABEnvironment {
     
     public var headers: [String: String]?
     
-    public var host: String
+    public var host: String!
     
-    public var type: ABEnvironmentType
+    public var type: ABEnvironmentType!
     
     init() {
         self.host = ""

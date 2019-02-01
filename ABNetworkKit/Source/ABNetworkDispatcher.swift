@@ -3,29 +3,14 @@
 
 import Foundation
 
-open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
+open class ABNetworkDispatcher: ABDispatcherProtocol {
     
-    private var environment: ABEnvironment {
-        didSet {
-            self.environmentType = environment.type
-        }
-    }
+    private var environment: ABEnvironment!
+    private var networkServices: ABNetworkServicesProtocol!
     
-    public var environmentType: ABEnvironmentType = .production
-    
-    private override init(configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
-        self.environment = ABEnvironment()
-        super.init(configuration: configuration, delegateQueue: delegateQueue)
-    }
-    
-    required public init(environment: ABEnvironment) {
+    public required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol? = ABNetworkServices.defaultSharedServices) {
         self.environment = environment
-        super.init(configuration: .default, delegateQueue: OperationQueue())
-    }
-
-    required public init(environment: ABEnvironment, configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
-        self.environment = environment
-        super.init(configuration: configuration, delegateQueue: delegateQueue)
+        self.networkServices = networkServices
     }
     
     public func execute(request: ABRequestProtocol, completion: @escaping (ABNetworkResponse) -> Void) throws -> URLSessionTask? {
@@ -41,7 +26,7 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
                
                 case .file(let nameWithExtension):
                     log("Executing request ⏳ ", urlRequest)
-                    task = downloadTask(request: urlRequest, destination: { [weak self] (url, urlResponse) -> URL in
+                    task = self.networkServices.downloadTask(request: urlRequest, destination: { [weak self] (url, urlResponse) -> URL in
                         let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                         var fileURL = tempDirURL
                         let filenameComponents = nameWithExtension.components(separatedBy: ".")
@@ -81,7 +66,7 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
                 
             case .standard:
                 log("Executing request ⏳ ", urlRequest)
-                task = self.session?.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
+                task = self.networkServices.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
                     self?.log("Received response 👍 ", urlResponse)
                     DispatchQueue.main.async {
                         completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
@@ -90,7 +75,7 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
                 task?.resume()
                 
             case .upload:
-                task = uploadTask(for: urlRequest, fromFile: URL(string: "")!, completion: { [weak self] (data, urlResponse, error) in
+                task = self.networkServices.uploadTask(for: urlRequest, fromFile: URL(string: "")!, completion: { [weak self] (data, urlResponse, error) in
                     self?.log("Received response 👍 ", urlResponse)
                     completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
                 })
@@ -107,8 +92,10 @@ open class ABNetworkDispatcher: ABNetworkServices, ABDispatcherProtocol {
     
     private func prepareURLRequest(for request: ABRequestProtocol) throws -> URLRequest {
 
-        switch environmentType {
-        case .custom(let hostPath):
+        switch self.environment.type! {
+        case ABEnvironmentType.production:
+            break
+        case ABEnvironmentType.custom(let hostPath):
             environment.host = hostPath
         default:
             break
@@ -162,7 +149,7 @@ extension ABNetworkDispatcher {
     
     public func log(_ entry: Any? ...) {
         
-        switch environment.type {
+        switch environment.type! {
         case .development:
             print("DISPATCHER ☞ ", entry.filter { $0 != nil }.map { $0! })
         default:
