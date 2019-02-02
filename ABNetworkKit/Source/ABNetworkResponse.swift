@@ -5,10 +5,8 @@ import Foundation
 
 public enum ABNetworkResponse {
     
-    case file(location: URL?, _: HTTPURLResponse?)
-
     case error(_: Error?, _: HTTPURLResponse?)
-
+    case file(location: URL?, _: HTTPURLResponse?)
     case json(_: Any?, _: HTTPURLResponse?)
     
     init(_ response: (httpResponse: HTTPURLResponse?, data: Any?, error: Error?), for request: ABRequestProtocol) {

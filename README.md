@@ -1,35 +1,29 @@
 # ABNetworkKit
 A protocol oriented approach to HTTP Networking on iOS.
 
-ABNetworkKit is a facade of three type-safe Swift constructs: class, struct and enum that conform to `ABDispatcherProtocol`, `ABOperationProtocol` and `ABRequestProtocol` respectively. It uses Foundation's URL Loading System to interact with URLs and communicate with servers using standard Internet protocols. It defines `ABNetworkTypes` to encapsulate request information, for establishing a URL session and handles the incoming data or errors asynchronously to user defined `NetworkResponse`
+ABNetworkKit is a facade of three simple type-safe constructs: request, operation and dispatcher that conform to `ABRequestProtocol`, `ABOperationProtocol` and `ABDispatcherProtocol` respectively. It uses Foundation's URL Loading System to interact with URLs and communicate with servers using standard Internet protocols. It defines `ABNetworkTypes` to encapsulate request information, for establishing a URL session and handles the network response asynchronously to user defined `ABNetworkResponse`
 
 
 ## Protocols (Swift)
 
 ###  ABDispatcherProtocol 
 
-The included `ABNetworkDispatcher` (open to subclass) is responsible for initiating requests and forwarding on information directly from the underlying URL session. It conforms to `ABDispatcherProtocol`
+A dispatcher class needs to be created for initiating network requests, included `ABNetworkDispatcher` (replace with yours) is responsible for forwarding on a request information to the underlying URL session. It conforms to `ABDispatcherProtocol`
 
 ```swift
 
 public protocol ABDispatcherProtocol {
 
-    init(environment: ABEnvironment)
+    init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?, logger: ABLoggerProtocol?)
 
-    init(environment: ABEnvironment, 
-            configuration: URLSessionConfiguration, 
-            delegateQueue: OperationQueue)
-
-    func execute(request: ABRequestProtocol, 
-                    completion:@escaping (ABNetworkResponse)->Void) 
-                    throws -> URLSessionTask?
+    func execute(request: ABRequestProtocol, completion:@escaping (ABNetworkResponse)->Void) throws -> URLSessionTask?
 }
 
 ```
 
 ###  ABOperationProtocol 
 
-An Operation struct needs to be created for attaching HTTP requests to the `ABNetworkDispatcher`. It will conform to `ABOperationProtocol`
+An operation class needs to be created for attaching HTTP requests to the `ABNetworkDispatcher`. It will conform to `ABOperationProtocol`
 
 ```swift
 
@@ -82,14 +76,12 @@ The `ABEnvironment` encapsulates the host server address, type (custom, developm
 public struct ABEnvironment {
 
     public var headers: [String: String]?
+    public var host: String!
+    public var type: ABEnvironmentType!
 
-    public var host: String
-
-    public var type: ABEnvironmentType
-
-    init() {
+    private init() {
         self.host = ""
-        self.type = .none
+        self.type = .custom(host: host)
     }
 
     public init(host: String, type: ABEnvironmentType) {
@@ -97,6 +89,7 @@ public struct ABEnvironment {
         self.type = type
     }
 }
+
 
 ```
 
@@ -146,10 +139,10 @@ The `ABRequestAction` represents supported kind of URLRequest actions.
 
 public enum ABRequestAction {
 
+    case data
+    
     case download(withProgressHandler: ((Float, String)->Void)?)
-
-    case standard
-
+    
     case upload
 }
 
@@ -193,18 +186,18 @@ The `ABNetworkResponse` handler for converting HTTP Response to corresponding `A
 
 enum ABNetworkResponse {
 
-    case file(location: URL?, _: HTTPURLResponse?)
-
     case error(_: Error?, _: HTTPURLResponse?)
+
+    case file(location: URL?, _: HTTPURLResponse?)
 
     case json(_: Any?, _: HTTPURLResponse?)
 }
 
 ```
 
-## ABNetworkServices (Objective C, Swift)
+## ABNetworkServices
 
-The base class reponsible for establishing  a network URL session for all HTTP requests. It conforms to `URLSessionTaskDelegate` and adheres to `ABNetworkSecurityPolicy`
+The class (replace with yours) reponsible for establishing  a network URL session for all HTTP requests. It conforms to `URLSessionTaskDelegate` and adheres to `ABNetworkSecurityPolicy`
 
 See the [usage][] for more info.
 

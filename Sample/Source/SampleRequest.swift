@@ -15,7 +15,7 @@ enum SampleRequest: ABRequestProtocol {
         case .downloadSampleImage(let progresshandler):
             return .download(withProgressHandler: progresshandler)
         case .getSampleUsers:
-            return .standard
+            return .data
         }
     }
     

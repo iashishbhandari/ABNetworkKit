@@ -3,31 +3,17 @@
 
 import Foundation
 
+public class ABNetworkServices: NSObject {
+    
+    public var request: URLRequest?
+    public var securityPolicy = ABNetworkSecurityPolicy.policy(withCerficates: nil)
+    public var session: URLSession?
+    public var sessionDidReceiveAuthenticationChallenge: ((URLSession, URLAuthenticationChallenge, inout URLCredential?)->URLSession.AuthChallengeDisposition)?
+    
+    private var downloadTaskFileLocationWithHandlers: ( ((URL, URLResponse?)->URL)?, ((Float, String)->Void)?, ((URL?, URLResponse?, Error?)->Void)? )
+    private var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, URLResponse, URLRequest)->URLRequest)?
 
-public protocol ABNetworkServicesProtocol {
-    
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Any?, URLResponse?, Error?) -> Void) -> URLSessionDataTask?
-    
-    func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, progressHandler: @escaping (Float, String)->Void, completionHandler: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask?
-    
-    func uploadTask(for request: URLRequest, fromFile fileURL: URL, completion: @escaping (Data?, URLResponse?, Error?)->Void) -> URLSessionUploadTask?
-}
-
-@objcMembers open class ABNetworkServices: NSObject, ABNetworkServicesProtocol {
-    
-    open var securityPolicy = ABNetworkSecurityPolicy.defaultPolicy
-    
-    open var session: URLSession?
-    
-    open var sessionDidReceiveAuthenticationChallenge: ((URLSession, URLAuthenticationChallenge, inout URLCredential?)->URLSession.AuthChallengeDisposition)?
-    
-    open var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, URLResponse, URLRequest)->URLRequest)?
-    
-    public var currentRequest: URLRequest? {
-        return request
-    }
-    
-    public static let defaultSharedServices: ABNetworkServices = {
+    public override convenience init() {
         let concurrentQueue = OperationQueue()
         concurrentQueue.maxConcurrentOperationCount = 3
         concurrentQueue.qualityOfService = .userInitiated
@@ -36,23 +22,18 @@ public protocol ABNetworkServicesProtocol {
         if #available(iOS 11, *) {
             defaultSessionConfiguration.waitsForConnectivity = true
         }
-        return ABNetworkServices(configuration: defaultSessionConfiguration, delegateQueue: concurrentQueue)
-    }()
-    
-    private var request: URLRequest?
-    
-    private var downloadTaskFileLocationWithHandlers: ( ((URL, URLResponse?)->URL)?, ((Float, String)->Void)?, ((URL?, URLResponse?, Error?)->Void)? )
-
-    private override init() {
-        super.init()
+        self.init(configuration: defaultSessionConfiguration, delegateQueue: concurrentQueue)
     }
     
     public init(configuration: URLSessionConfiguration, delegateQueue: OperationQueue) {
         super.init()
         self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: delegateQueue)
     }
+}
+
+extension ABNetworkServices: ABNetworkServicesProtocol {
     
-    open func dataTask(with request: URLRequest, completionHandler: @escaping (Any?, URLResponse?, Error?) -> Void) -> URLSessionDataTask? {
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Any?, URLResponse?, Error?) -> Void) -> URLSessionDataTask? {
         
         self.request = request
         let dataTask = session?.dataTask(with: request) { (data, response, error) in
@@ -73,14 +54,14 @@ public protocol ABNetworkServicesProtocol {
         return dataTask
     }
     
-    open func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, progressHandler: @escaping (Float, String)->Void, completionHandler: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask? {
+    public func downloadTask(request: URLRequest, destination: @escaping (URL, URLResponse?)->URL, progressHandler: @escaping (Float, String)->Void, completionHandler: @escaping (URL?, URLResponse?, Error?)->Void) -> URLSessionDownloadTask? {
         
         self.request = request
         self.downloadTaskFileLocationWithHandlers = (destination, progressHandler, completionHandler)
         return session?.downloadTask(with: request)
     }
     
-    open func uploadTask(for request: URLRequest, fromFile fileURL: URL, completion: @escaping (Data?, URLResponse?, Error?)->Void) -> URLSessionUploadTask? {
+    public func uploadTask(for request: URLRequest, fromFile fileURL: URL, completion: @escaping (Data?, URLResponse?, Error?)->Void) -> URLSessionUploadTask? {
         
         self.request = request
         let uploadTask = session?.uploadTask(with: request, fromFile: fileURL, completionHandler: { (data, urlResponse, error) in

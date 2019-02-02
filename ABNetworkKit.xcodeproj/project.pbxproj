@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		754ACFED2205646D003A7786 /* ABLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFEC2205646D003A7786 /* ABLogger.swift */; };
+		754ACFEF22056985003A7786 /* ABNetworkServicesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFEE22056985003A7786 /* ABNetworkServicesProtocol.swift */; };
+		754ACFF122057187003A7786 /* ABLoggerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFF022057187003A7786 /* ABLoggerProtocol.swift */; };
 		A100AF15216C8E8600C68E9D /* Usage.md in Resources */ = {isa = PBXBuildFile; fileRef = A100AF14216C8E8600C68E9D /* Usage.md */; };
 		A11DB90F2172021400C12CA2 /* SampleDispatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11DB90E2172021400C12CA2 /* SampleDispatchers.swift */; };
 		A1465BA1215F854A0022C635 /* ABNetworkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1465B9F215F854A0022C635 /* ABNetworkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,6 +62,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		754ACFEC2205646D003A7786 /* ABLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLogger.swift; sourceTree = "<group>"; };
+		754ACFEE22056985003A7786 /* ABNetworkServicesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABNetworkServicesProtocol.swift; sourceTree = "<group>"; };
+		754ACFF022057187003A7786 /* ABLoggerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLoggerProtocol.swift; sourceTree = "<group>"; };
 		A100AF14216C8E8600C68E9D /* Usage.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Usage.md; sourceTree = "<group>"; };
 		A11DB90E2172021400C12CA2 /* SampleDispatchers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleDispatchers.swift; sourceTree = "<group>"; };
 		A1465B9C215F854A0022C635 /* ABNetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ABNetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +150,7 @@
 				A1465BA9215F85B20022C635 /* ABNetworkSecurityPolicy.swift */,
 				A1465BA8215F85B20022C635 /* ABNetworkServices.swift */,
 				A1EBA3DE2168DD9B00265C16 /* ABNetworkTypes.swift */,
+				754ACFEC2205646D003A7786 /* ABLogger.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -170,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				A1465BF2215F8BA00022C635 /* ABDispatcherProtocol.swift */,
+				754ACFF022057187003A7786 /* ABLoggerProtocol.swift */,
+				754ACFEE22056985003A7786 /* ABNetworkServicesProtocol.swift */,
 				A1465BF4215F8BA00022C635 /* ABOperationProtocol.swift */,
 				A1465BF3215F8BA00022C635 /* ABRequestProtocol.swift */,
 			);
@@ -332,13 +341,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1465BAD215F85B30022C635 /* ABNetworkSecurityPolicy.swift in Sources */,
+				754ACFEF22056985003A7786 /* ABNetworkServicesProtocol.swift in Sources */,
 				A1465BF6215F8BA00022C635 /* ABDispatcherProtocol.swift in Sources */,
 				A1EBA3DF2168DD9B00265C16 /* ABNetworkResponse.swift in Sources */,
 				A1465BF8215F8BA00022C635 /* ABOperationProtocol.swift in Sources */,
+				754ACFED2205646D003A7786 /* ABLogger.swift in Sources */,
 				A1EBA3E02168DD9B00265C16 /* ABNetworkTypes.swift in Sources */,
 				A1465BF7215F8BA00022C635 /* ABRequestProtocol.swift in Sources */,
 				A1465BAC215F85B30022C635 /* ABNetworkServices.swift in Sources */,
 				A1465BAF215F85B30022C635 /* ABNetworkDispatcher.swift in Sources */,
+				754ACFF122057187003A7786 /* ABLoggerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -495,7 +507,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -565,7 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Sample/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -584,7 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Sample/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

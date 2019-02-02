@@ -3,7 +3,7 @@
 
 import Foundation
 
-@objcMembers public class ABNetworkSecurityPolicy: NSObject {
+public class ABNetworkSecurityPolicy: NSObject {
     
     public var allowInvalidCertificates: Bool = false
     
@@ -18,31 +18,24 @@ import Foundation
         return certificates
     }()
     
-    public static let defaultPolicy: ABNetworkSecurityPolicy = {
-        let instance = ABNetworkSecurityPolicy()
-        instance.allowInvalidCertificates = false
-        instance.pinningMode = .certificate
-        return instance
-    }()
+    private override init() {
+        super.init()
+    }
     
-    private var pinningMode: ABSSLPinningMode = .certificate
-    
-    public class func policy(withCerficates cer: Set<Data>?) -> ABNetworkSecurityPolicy {
+    public static func policy(withCerficates cer: Set<Data>?) -> ABNetworkSecurityPolicy {
         let instance = ABNetworkSecurityPolicy()
         if let certs = cer {
             instance.allowInvalidCertificates = false
-            instance.pinningMode = .certificate
             instance.certificates = certs
         } else {
             instance.allowInvalidCertificates = true
-            instance.pinningMode = .none
         }
         return instance
     }
     
     public func evaluateServerTrust(_ serverTrust: SecTrust?, forDomain domain: String) -> Bool {
         
-        guard !allowInvalidCertificates, pinningMode == .certificate else {
+        guard !allowInvalidCertificates else {
             return true
         }
         if let serverTrust = serverTrust {

@@ -3,8 +3,10 @@
 
 import ABNetworkKit
 
-class SampleDispatcher: ABNetworkDispatcher {
-
+class SampleDispatcher: ABDispatcherProtocol {
+    
+    var dispatcher: ABDispatcherProtocol!
+    
     convenience init() {
         let env = ABEnvironment(host: "https://jsonplaceholder.typicode.com", type: .development)
         let queue = OperationQueue()
@@ -12,15 +14,23 @@ class SampleDispatcher: ABNetworkDispatcher {
         queue.qualityOfService = .userInitiated
         let services = ABNetworkServices.init(configuration: .default, delegateQueue: queue)
         services.securityPolicy.allowInvalidCertificates = true
-        self.init(environment: env, networkServices: services)
+        self.init(environment: env, networkServices: services, logger: ABLogger())
     }
     
-    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?) {
-        super.init(environment: environment, networkServices: networkServices)
+    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?, logger: ABLoggerProtocol?) {
+        self.dispatcher = ABNetworkDispatcher(environment: environment, networkServices: networkServices, logger: logger)
+    }
+    
+    func execute(request: ABRequestProtocol, completion: @escaping (ABNetworkResponse) -> Void) throws -> URLSessionTask? {
+        do {
+            return try self.dispatcher.execute(request: request, completion: completion)
+        } catch {
+            return nil
+        }
     }
 }
 
-class BackgroundDispatcher: ABNetworkDispatcher {
+class BackgroundDispatcher: SampleDispatcher {
     
     convenience init() {
         let env = ABEnvironment(host: "https://dummyimage.com", type: .production)
@@ -31,10 +41,10 @@ class BackgroundDispatcher: ABNetworkDispatcher {
         queue.qualityOfService = .userInitiated
         let services = ABNetworkServices(configuration: config, delegateQueue: queue)
         services.securityPolicy.allowInvalidCertificates = true
-        self.init(environment: env, networkServices: services)
+        self.init(environment: env, networkServices: services, logger: ABLogger())
     }
     
-    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?) {
-        super.init(environment: environment, networkServices: networkServices)
+    required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?, logger: ABLoggerProtocol?) {
+        super.init(environment: environment, networkServices: networkServices, logger: logger)
     }
 }

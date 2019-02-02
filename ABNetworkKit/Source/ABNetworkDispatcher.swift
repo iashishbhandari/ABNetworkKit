@@ -3,14 +3,16 @@
 
 import Foundation
 
-open class ABNetworkDispatcher: ABDispatcherProtocol {
+public class ABNetworkDispatcher: ABDispatcherProtocol {
     
     private var environment: ABEnvironment!
     private var networkServices: ABNetworkServicesProtocol!
+    private var logger: ABLoggerProtocol!
     
-    public required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol? = ABNetworkServices.defaultSharedServices) {
+    public required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol? = ABNetworkServices(), logger: ABLoggerProtocol? = ABLogger()) {
         self.environment = environment
         self.networkServices = networkServices
+        self.logger = logger
     }
     
     public func execute(request: ABRequestProtocol, completion: @escaping (ABNetworkResponse) -> Void) throws -> URLSessionTask? {
@@ -25,7 +27,7 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
                 switch request.responseType {
                
                 case .file(let nameWithExtension):
-                    log("Executing request ⏳ ", urlRequest)
+                    self.logger.log("Executing request ⏳ ", urlRequest)
                     task = self.networkServices.downloadTask(request: urlRequest, destination: { [weak self] (url, urlResponse) -> URL in
                         let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                         var fileURL = tempDirURL
@@ -36,20 +38,20 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
                             fileURL = tempDirURL.appendingPathComponent("temp").appendingPathExtension("png")
                         }
                         try? FileManager.default.removeItem(at: fileURL)
-                        self?.log("Destination file URL ⚠️ \(fileURL.absoluteString)")
+                        self?.logger.log("Destination file URL ⚠️ \(fileURL.absoluteString)")
                         return  fileURL
                         
                         }, progressHandler: { [weak self] (fractionCompleted, fileSizeInfo) in
-                            self?.log("Received progress ⏳ ", "\(fractionCompleted*100)%")
+                            self?.logger.log("Received progress ⏳ ", "\(fractionCompleted*100)%")
                             switch request.actionType {
                             case .download(let progressHandler):
                                 progressHandler?(fractionCompleted, fileSizeInfo)
-                            case .standard, .upload:
+                            case .data, .upload:
                                 break
                             }
                             
                         }, completionHandler: { [weak self] (fileURL, urlResponse, error) in
-                            self?.log("Received response 👍 ", urlResponse)
+                            self?.logger.log("Received response 👍 ", urlResponse)
                             if let _ = error {
                                 completion(ABNetworkResponse.error(error, urlResponse as? HTTPURLResponse))
                             } else {
@@ -59,15 +61,15 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
                     task?.resume()
                     
                 case .json:
-                    log("DownloadTask needs a file location ⚠️ ")
+                    self.logger.log("DownloadTask needs a file location ⚠️ ")
                     completion(ABNetworkResponse.error(ABNetworkError.badInput, nil))
                 }
                 
                 
-            case .standard:
-                log("Executing request ⏳ ", urlRequest)
+            case .data:
+                self.logger.log("Executing request ⏳ ", urlRequest)
                 task = self.networkServices.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
-                    self?.log("Received response 👍 ", urlResponse)
+                    self?.logger.log("Received response 👍 ", urlResponse)
                     DispatchQueue.main.async {
                         completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
                     }
@@ -76,14 +78,14 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
                 
             case .upload:
                 task = self.networkServices.uploadTask(for: urlRequest, fromFile: URL(string: "")!, completion: { [weak self] (data, urlResponse, error) in
-                    self?.log("Received response 👍 ", urlResponse)
+                    self?.logger.log("Received response 👍 ", urlResponse)
                     completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
                 })
                 task?.resume()
             }
             
         } catch {
-            log("Got request Exception 🤭 ", error)
+            self.logger.log("Got request Exception 🤭 ", error)
             completion(ABNetworkResponse.error(error, nil))
         }
         
@@ -104,7 +106,7 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
         let url_string = environment.host + request.path
         
         guard !url_string.isEmpty, let url = URL(string: url_string) else {
-            log("Bad host url ⚠️ ", url_string)
+            self.logger.log("Bad host url ⚠️ ", url_string)
             throw ABNetworkError.badInput
         }
         
@@ -116,7 +118,7 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
             if let params = params as? [String: String] {
                 url_request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             } else {
-                log("No request body ⚠️ ", request)
+                self.logger.log("No request body ⚠️ ", request)
             }
             
         case .url(let params):
@@ -132,7 +134,7 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
                     url_request.url = components.url
                 }
             } else {
-                log("No request params ⚠️ ", request)
+                self.logger.log("No request params ⚠️ ", request)
             }
         }
         
@@ -142,18 +144,5 @@ open class ABNetworkDispatcher: ABDispatcherProtocol {
         url_request.httpMethod = request.method.rawValue
         
         return url_request
-    }
-}
-
-extension ABNetworkDispatcher {
-    
-    public func log(_ entry: Any? ...) {
-        
-        switch environment.type! {
-        case .development:
-            print("DISPATCHER ☞ ", entry.filter { $0 != nil }.map { $0! })
-        default:
-            break
-        }
     }
 }

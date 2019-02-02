@@ -5,6 +5,7 @@
 A sample Request enumeration conforming the `ABRequestProtocol`
 
 ```swift
+
 import ABNetworkKit
 
 enum SampleRequest: ABRequestProtocol {
@@ -12,7 +13,7 @@ enum SampleRequest: ABRequestProtocol {
     case fetchSampleData
 
     var actionType: ABRequestAction {
-        return .standard
+        return .data
     }
 
     var headers: [String : String]? {
@@ -85,9 +86,9 @@ The `ABNetworkResponse` handler for converting HTTP Response to corresponding `R
 
 enum ABNetworkResponse {
 
-    case file(location: URL?, _: HTTPURLResponse?)
-
     case error(_: Error?, _: HTTPURLResponse?)
+    
+    case file(location: URL?, _: HTTPURLResponse?)
 
     case json(_: Any?, _: HTTPURLResponse?)
 }
