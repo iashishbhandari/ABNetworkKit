@@ -1,5 +1,10 @@
 // MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
 
+/******************************************************************************************
+ 
+ This class can be replaced with any Network API client conforming to 'ABServicesProtocol'
+ 
+ *****************************************************************************************/
 
 import Foundation
 
@@ -31,7 +36,7 @@ public class ABNetworkServices: NSObject {
     }
 }
 
-extension ABNetworkServices: ABNetworkServicesProtocol {
+extension ABNetworkServices: ABServicesProtocol {
     
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Any?, URLResponse?, Error?) -> Void) -> URLSessionDataTask? {
         

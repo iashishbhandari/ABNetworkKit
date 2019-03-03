@@ -14,7 +14,7 @@ A dispatcher class needs to be created for initiating network requests, included
 
 public protocol ABDispatcherProtocol {
 
-    init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol?, logger: ABLoggerProtocol?)
+    init(environment: ABNetworkEnvironment, networkServices: ABNetworkServicesProtocol?, logger: ABLoggerProtocol?)
 
     func execute(request: ABRequestProtocol, completion:@escaping (ABNetworkResponse)->Void) throws -> URLSessionTask?
 }
@@ -67,24 +67,24 @@ public protocol ABRequestProtocol {
 
 ## NetworkTypes (Swift)
 
-### ABEnvironment 
+### ABNetworkEnvironment 
 
-The `ABEnvironment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all the URLRequests.
+The `ABNetworkEnvironment` encapsulates the host server address, type (custom, development, production) and generic headers (if any) for all the URLRequests.
 
 ```swift
 
-public struct ABEnvironment {
+public struct ABNetworkEnvironment {
 
     public var headers: [String: String]?
     public var host: String!
-    public var type: ABEnvironmentType!
+    public var type: ABNetworkEnvironmentType!
 
     private init() {
         self.host = ""
         self.type = .custom(host: host)
     }
 
-    public init(host: String, type: ABEnvironmentType) {
+    public init(host: String, type: ABNetworkEnvironmentType) {
         self.host = host
         self.type = type
     }
@@ -93,13 +93,13 @@ public struct ABEnvironment {
 
 ```
 
-### ABEnvironmentType 
+### ABNetworkEnvironmentType 
 
-The `ABEnvironmentType` supports type `custom` for replacing the host address of a particular URLRequest (e.g CDN address),  type `development` for logging network calls and type `production` for LIVE server APIs.
+The `ABNetworkEnvironmentType` supports type `custom` for replacing the host address of a particular URLRequest (e.g CDN address),  type `development` for logging network calls and type `production` for LIVE server APIs.
 
 ```swift
 
-public enum ABEnvironmentType {
+public enum ABNetworkEnvironmentType {
 
     case custom(String)
 

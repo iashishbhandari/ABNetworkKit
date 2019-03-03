@@ -7,7 +7,7 @@ class SampleOperation: ABOperationProtocol {
     
     var sessionTask: URLSessionTask?
     
-    typealias Output = ([SampleUser]?, URL?, Error?)
+    typealias Output = ([UserEntity]?, URL?, Error?)
     
     var request: ABRequestProtocol
     
@@ -19,8 +19,8 @@ class SampleOperation: ABOperationProtocol {
        sessionTask?.cancel()
     }
     
-    func execute(in dispatcher: ABDispatcherProtocol, _ completion: @escaping (([SampleUser]?, URL?, Error?)) -> Void) {
-        var users: [SampleUser]?
+    func execute(in dispatcher: ABDispatcherProtocol, _ completion: @escaping (([UserEntity]?, URL?, Error?)) -> Void) {
+        var users: [UserEntity]?
         var error: Error?
         var fileURL: URL?
         do {
@@ -46,15 +46,15 @@ class SampleOperation: ABOperationProtocol {
         }
     }
     
-    private func parseSampleUsers(_ JSON: Any?) -> ([SampleUser]?, Error?) {
-        var users: [SampleUser]?
+    private func parseSampleUsers(_ JSON: Any?) -> ([UserEntity]?, Error?) {
+        var users: [UserEntity]?
         var error: Error?
         if let jsonArray = JSON as? [[String : Any]] {
-            users = [SampleUser]()
+            users = [UserEntity]()
             for json in jsonArray {
                 do {
                     let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-                    users?.append(try JSONDecoder().decode(SampleUser.self, from: data))
+                    users?.append(try JSONDecoder().decode(UserEntity.self, from: data))
                 } catch (let err) {
                     error = err
                 }

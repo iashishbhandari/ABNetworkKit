@@ -5,16 +5,14 @@ import ABNetworkKit
 
 enum SampleRequest: ABRequestProtocol {
     
-    case getSampleUsers
-    
+    case getSampleUsersData
     case downloadSampleImage(progresshandler: (Float, String)->Void)
-    
     
     var actionType: ABRequestAction {
         switch self {
         case .downloadSampleImage(let progresshandler):
             return .download(withProgressHandler: progresshandler)
-        case .getSampleUsers:
+        case .getSampleUsersData:
             return .data
         }
     }
@@ -32,7 +30,7 @@ enum SampleRequest: ABRequestProtocol {
         switch self {
         case .downloadSampleImage:
             return .get
-        case .getSampleUsers:
+        case .getSampleUsersData:
             return .get
         }
     }
@@ -41,7 +39,7 @@ enum SampleRequest: ABRequestProtocol {
         switch self {
         case .downloadSampleImage:
             return .url(nil)
-        case .getSampleUsers:
+        case .getSampleUsersData:
             return .url(nil)
         }
     }
@@ -50,7 +48,7 @@ enum SampleRequest: ABRequestProtocol {
         switch self {
         case .downloadSampleImage:
             return "/400x600/000000/0011ff.png&text=hello!"
-        case .getSampleUsers:
+        case .getSampleUsersData:
             return "/users"
         }
     }
@@ -59,7 +57,7 @@ enum SampleRequest: ABRequestProtocol {
         switch self {
         case .downloadSampleImage:
             return .file(nameWithExtension: "sample.png")
-        case .getSampleUsers:
+        case .getSampleUsersData:
             return .json
         }
     }

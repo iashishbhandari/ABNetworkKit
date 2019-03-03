@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
 
 
-public class ABLogger: ABLoggerProtocol {
+public class ABNetworkLogger: ABLoggerProtocol {
     
     public init() {}
     

@@ -4,7 +4,7 @@
 import ABNetworkKit
 import UIKit
 
-class ViewController: UIViewController {
+class ImageViewController: UIViewController {
     
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     }
     
     private func fetchSampleUsers() {
-        SampleOperation(SampleRequest.getSampleUsers).execute(in: SampleDispatcher()) { [weak self] ( response ) in
+        SampleOperation(SampleRequest.getSampleUsersData).execute(in: MainDispatcher()) { [weak self] ( response ) in
             if let users = response.0, !users.isEmpty {
                 for user in users {
                     print(user)

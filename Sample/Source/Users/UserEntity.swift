@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct SampleUser: Codable {
+struct UserEntity: Codable {
     
     var id: Int?
     var name: String?
@@ -24,8 +24,13 @@ struct Address: Codable {
 }
 
 struct Geo: Codable {
-    var lat: String?
-    var lng: String?
+    var latitude: String?
+    var longitude: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case latitude = "lat"
+        case longitude = "lng"
+    }
 }
 
 struct Company: Codable {

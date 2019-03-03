@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
 
 
-public protocol ABNetworkServicesProtocol {
+public protocol ABServicesProtocol {
     
     func dataTask(with request: URLRequest, completionHandler: @escaping (Any?, URLResponse?, Error?) -> Void) -> URLSessionDataTask?
     

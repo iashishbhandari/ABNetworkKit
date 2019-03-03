@@ -5,11 +5,11 @@ import Foundation
 
 public class ABNetworkDispatcher: ABDispatcherProtocol {
     
-    private var environment: ABEnvironment!
-    private var networkServices: ABNetworkServicesProtocol!
+    private var environment: ABEnvironmentProtocol!
+    private var networkServices: ABServicesProtocol!
     private var logger: ABLoggerProtocol!
     
-    public required init(environment: ABEnvironment, networkServices: ABNetworkServicesProtocol? = ABNetworkServices(), logger: ABLoggerProtocol? = ABLogger()) {
+    required public init(environment: ABEnvironmentProtocol, networkServices: ABServicesProtocol? = ABNetworkServices(), logger: ABLoggerProtocol? = ABNetworkLogger()) {
         self.environment = environment
         self.networkServices = networkServices
         self.logger = logger
@@ -94,7 +94,7 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
     
     private func prepareURLRequest(for request: ABRequestProtocol) throws -> URLRequest {
 
-        switch self.environment.type! {
+        switch self.environment.type {
         case ABEnvironmentType.production:
             break
         case ABEnvironmentType.custom(let hostPath):
