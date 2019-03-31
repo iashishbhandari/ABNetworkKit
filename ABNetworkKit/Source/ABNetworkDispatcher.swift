@@ -15,8 +15,8 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
         self.logger = logger
     }
     
-    public func execute(request: ABRequestProtocol, completion: @escaping (ABNetworkResponse) -> Void) throws -> URLSessionTask? {
-        
+    public func execute(request: ABRequestProtocol, result: ABPromise<ABNetworkResponse>) throws -> URLSessionTask? {
+
         var task: URLSessionTask?
         
         do {
@@ -38,11 +38,11 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
                             fileURL = tempDirURL.appendingPathComponent("temp").appendingPathExtension("png")
                         }
                         try? FileManager.default.removeItem(at: fileURL)
-                        self?.logger.log("Destination file URL ⚠️ \(fileURL.absoluteString)")
+                        self?.logger.log(" 👍 Destination file location: \(fileURL.absoluteString)")
                         return  fileURL
                         
                         }, progressHandler: { [weak self] (fractionCompleted, fileSizeInfo) in
-                            self?.logger.log("Received progress ⏳ ", "\(fractionCompleted*100)%")
+                            self?.logger.log("Received data progress ⏳ ", "\(fractionCompleted*100)%")
                             switch request.actionType {
                             case .download(let progressHandler):
                                 progressHandler?(fractionCompleted, fileSizeInfo)
@@ -51,42 +51,42 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
                             }
                             
                         }, completionHandler: { [weak self] (fileURL, urlResponse, error) in
-                            self?.logger.log("Received response 👍 ", urlResponse)
+                            self?.logger.log(" 👍 Received response", urlResponse)
                             if let _ = error {
-                                completion(ABNetworkResponse.error(error, urlResponse as? HTTPURLResponse))
+                                result.value = ABNetworkResponse.error(error, urlResponse as? HTTPURLResponse)
                             } else {
-                                completion(ABNetworkResponse.file(location: fileURL, urlResponse as? HTTPURLResponse))
+                                result.value = ABNetworkResponse.file(location: fileURL, urlResponse as? HTTPURLResponse)
                             }
                     })
                     task?.resume()
                     
                 case .json:
-                    self.logger.log("DownloadTask needs a file location ⚠️ ")
-                    completion(ABNetworkResponse.error(ABNetworkError.badInput, nil))
+                    self.logger.log(" ⚠️ No File location found")
+                    result.value = ABNetworkResponse.error(ABNetworkError.badInput, nil)
                 }
                 
                 
             case .data:
                 self.logger.log("Executing request ⏳ ", urlRequest)
                 task = self.networkServices.dataTask(with: urlRequest, completionHandler: { [weak self] (data, urlResponse, error) in
-                    self?.logger.log("Received response 👍 ", urlResponse)
+                    self?.logger.log(" 👍 Received Response", urlResponse)
                     DispatchQueue.main.async {
-                        completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
+                        result.value = ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request)
                     }
                 })
                 task?.resume()
                 
             case .upload:
                 task = self.networkServices.uploadTask(for: urlRequest, fromFile: URL(string: "")!, completion: { [weak self] (data, urlResponse, error) in
-                    self?.logger.log("Received response 👍 ", urlResponse)
-                    completion(ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request))
+                    self?.logger.log(" 👍 Received Response", urlResponse)
+                    result.value = ABNetworkResponse((urlResponse as? HTTPURLResponse, data, error), for: request)
                 })
                 task?.resume()
             }
             
         } catch {
-            self.logger.log("Got request Exception 🤭 ", error)
-            completion(ABNetworkResponse.error(error, nil))
+            self.logger.log(" 🤭 Request Exception", error)
+            result.value = ABNetworkResponse.error(error, nil)
         }
         
         return task
@@ -106,7 +106,7 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
         let url_string = environment.host + request.path
         
         guard !url_string.isEmpty, let url = URL(string: url_string) else {
-            self.logger.log("Bad host url ⚠️ ", url_string)
+            self.logger.log(" ⚠️ Bad Host url found", url_string)
             throw ABNetworkError.badInput
         }
         
@@ -118,7 +118,7 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
             if let params = params as? [String: String] {
                 url_request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
             } else {
-                self.logger.log("No request body ⚠️ ", request)
+                self.logger.log(" ⚠️ No Request body found", request)
             }
             
         case .url(let params):
@@ -134,7 +134,7 @@ public class ABNetworkDispatcher: ABDispatcherProtocol {
                     url_request.url = components.url
                 }
             } else {
-                self.logger.log("No request params ⚠️ ", request)
+                self.logger.log(" ⚠️ No Request params found", request)
             }
         }
         

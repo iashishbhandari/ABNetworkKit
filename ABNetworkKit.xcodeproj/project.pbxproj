@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		753446FB2244C95600579D9D /* ABPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753446FA2244C95600579D9D /* ABPromise.swift */; };
 		754ACFED2205646D003A7786 /* ABNetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFEC2205646D003A7786 /* ABNetworkLogger.swift */; };
 		754ACFEF22056985003A7786 /* ABServicesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFEE22056985003A7786 /* ABServicesProtocol.swift */; };
 		754ACFF122057187003A7786 /* ABLoggerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754ACFF022057187003A7786 /* ABLoggerProtocol.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		753446FA2244C95600579D9D /* ABPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABPromise.swift; sourceTree = "<group>"; };
 		754ACFEC2205646D003A7786 /* ABNetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABNetworkLogger.swift; sourceTree = "<group>"; };
 		754ACFEE22056985003A7786 /* ABServicesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABServicesProtocol.swift; sourceTree = "<group>"; };
 		754ACFF022057187003A7786 /* ABLoggerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABLoggerProtocol.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				754ACFEC2205646D003A7786 /* ABNetworkLogger.swift */,
 				A1EBA3DD2168DD9B00265C16 /* ABNetworkResponse.swift */,
 				A1EBA3DE2168DD9B00265C16 /* ABNetworkTypes.swift */,
+				753446FA2244C95600579D9D /* ABPromise.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				757F2DBE222C307C003BAE7A /* ABEnvironmentProtocol.swift in Sources */,
 				A1EBA3E02168DD9B00265C16 /* ABNetworkTypes.swift in Sources */,
 				A1465BF7215F8BA00022C635 /* ABRequestProtocol.swift in Sources */,
+				753446FB2244C95600579D9D /* ABPromise.swift in Sources */,
 				A1465BAC215F85B30022C635 /* ABNetworkServices.swift in Sources */,
 				A1465BAF215F85B30022C635 /* ABNetworkDispatcher.swift in Sources */,
 				754ACFF122057187003A7786 /* ABLoggerProtocol.swift in Sources */,
@@ -497,7 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -555,7 +559,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -579,6 +583,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/ABNetworkKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -605,6 +610,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/ABNetworkKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -625,7 +631,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Sample/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -644,7 +650,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Sample/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

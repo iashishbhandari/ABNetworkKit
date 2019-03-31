@@ -3,9 +3,9 @@
 
 import ABNetworkKit
 
-enum Host: String {
-    case users = "https://jsonplaceholder.typicode.com"
-    case image = "https://dummyimage.com"
+struct Host {
+    static let users = "https://jsonplaceholder.typicode.com"
+    static let image = "https://dummyimage.com"
 }
 
 class MainDispatcher: ABDispatcherProtocol {
@@ -13,7 +13,7 @@ class MainDispatcher: ABDispatcherProtocol {
     private var dispatcher: ABDispatcherProtocol!
     
     convenience init() {
-        let env = ABNetworkEnvironment(host: Host.image.rawValue, type: .production)
+        let env = ABNetworkEnvironment(host: Host.users, type: .production)
         self.init(environment: env)
     }
     
@@ -30,19 +30,15 @@ class MainDispatcher: ABDispatcherProtocol {
         self.dispatcher = ABNetworkDispatcher(environment: environment, networkServices: networkServices, logger: logger)
     }
     
-    func execute(request: ABRequestProtocol, completion: @escaping (ABNetworkResponse) -> Void) throws -> URLSessionTask? {
-        do {
-            return try self.dispatcher.execute(request: request, completion: completion)
-        } catch {
-            return nil
-        }
+    func execute(request: ABRequestProtocol, result: ABPromise<ABNetworkResponse>) throws -> URLSessionTask? {
+        return try dispatcher.execute(request: request, result: result)
     }
 }
 
 class BackgroundDispatcher: MainDispatcher {
     
     convenience init() {
-        let env = ABNetworkEnvironment(host: Host.image.rawValue, type: .production)
+        let env = ABNetworkEnvironment(host: Host.image, type: .production)
         let config = URLSessionConfiguration.background(withIdentifier: "id.download.image")
         config.isDiscretionary = true
         let queue = OperationQueue()

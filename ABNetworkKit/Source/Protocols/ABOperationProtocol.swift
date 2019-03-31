@@ -9,9 +9,7 @@ public protocol ABOperationProtocol {
     
     var request: ABRequestProtocol  { get }
     
-    func cancel() -> Void
-    
-    func execute(in dispatcher: ABDispatcherProtocol,_ completion:@escaping (Output)->Void) -> Void
+    func execute(in dispatcher: ABDispatcherProtocol, result: ABPromise<Output>)
 }
 
 extension ABOperationProtocol {

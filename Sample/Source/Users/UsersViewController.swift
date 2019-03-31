@@ -1,20 +1,15 @@
-//
-//  UsersViewController.swift
-//  Sample
-//
-//  Created by ashish on 04/02/19.
-//  Copyright © 2019 iashishbhandari. All rights reserved.
-//
+// MIT license. Copyright (c) 2018 Ashish Bhandari. All rights reserved.
+
 
 import UIKit
 import ABNetworkKit
 
 class UsersViewController: UIViewController {
     
-    fileprivate var tableView: UITableView!
-    
+    private var tableView: UITableView!
     private var viewModel: UsersViewModel!
     private var logger: ABLoggerProtocol!
+    private var users = [UserEntity]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +21,21 @@ class UsersViewController: UIViewController {
         
         self.logger = ABNetworkLogger()
         self.viewModel = UsersViewModel(logger: logger)
+        self.viewModel.fetchUsersData()
+        self.viewModel.usersPromise = ABPromise({ (users) in
+            self.users = users ?? [UserEntity]()
+            self.tableView.reloadData()
+        })
+        self.viewModel.errorPromise = ABPromise({ (error) in
+            self.showAlert(message: error?.localizedDescription ?? "Something went wrong!")
+        })
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -33,7 +43,7 @@ class UsersViewController: UIViewController {
 extension UsersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 28
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,13 +53,8 @@ extension UsersViewController: UITableViewDataSource {
         } else {
             cell = UITableViewCell(style: .default, reuseIdentifier: "TableViewCell")
         }
-        cell.textLabel?.text = "Cell \(indexPath.row)"
+        let user = users[indexPath.row]
+        cell.textLabel?.text = user.name
         return cell
     }
-}
-
-extension UsersViewController: UITableViewDelegate {
-    
-    
-    
 }

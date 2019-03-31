@@ -3,18 +3,12 @@
 
 public let ABNetworkFailingURLResponseDataErrorKey = "FailingURLResponseDataErrorKey"
 
-
-
 internal enum ABNetworkError: Error {
     
     case badInput
     case exception
     case noData
 }
-
-
-
-
 
 internal enum ABSSLPinningMode {
     

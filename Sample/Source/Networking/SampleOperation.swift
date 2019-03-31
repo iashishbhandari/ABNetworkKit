@@ -5,29 +5,27 @@ import ABNetworkKit
 
 class SampleOperation: ABOperationProtocol {
     
-    var sessionTask: URLSessionTask?
+    typealias Output = (users: [UserEntity]?, url: URL?, error: Error?)
     
-    typealias Output = ([UserEntity]?, URL?, Error?)
+    var sessionTask: URLSessionTask?
     
     var request: ABRequestProtocol
     
     init(_ request: ABRequestProtocol) {
         self.request = request
     }
-    
-    func cancel() {
-       sessionTask?.cancel()
-    }
-    
-    func execute(in dispatcher: ABDispatcherProtocol, _ completion: @escaping (([UserEntity]?, URL?, Error?)) -> Void) {
+
+    func execute(in dispatcher: ABDispatcherProtocol, result: ABPromise<(users: [UserEntity]?, url: URL?, error: Error?)>) {
         var users: [UserEntity]?
         var error: Error?
         var fileURL: URL?
         do {
-            sessionTask = try dispatcher.execute(request: request, completion: { (response) in
-                
-                switch response {
-
+            self.sessionTask = try dispatcher.execute(request: request, result: ABPromise( { (value) in
+                guard let networkResponse = value else {
+                    return
+                }
+                switch networkResponse {
+                    
                 case .file(let url, _):
                     fileURL = url
                     
@@ -37,12 +35,11 @@ class SampleOperation: ABOperationProtocol {
                 case .json(let JSON, _):
                     (users, error) = self.parseSampleUsers(JSON)
                 }
-                
-                completion((users, fileURL, error))
-            })
-            
+                result.value = (users, fileURL, error)
+            }))
+
         } catch {
-            completion((users, fileURL, error))
+            result.value = (users, fileURL, error)
         }
     }
     

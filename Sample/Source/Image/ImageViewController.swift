@@ -22,30 +22,30 @@ class ImageViewController: UIViewController {
         SampleOperation(SampleRequest.downloadSampleImage(progresshandler: { (fractionCompleted, fileSizeInfo) in
             print("Progress: ", "\(fractionCompleted*100)% of \(fileSizeInfo)")
             
-        })).execute(in: BackgroundDispatcher()) { [weak self] ( response ) in
-            if let location = response.1 {
-                self?.imageView.image = UIImage(contentsOfFile: location.path)
-                self?.imageView.contentMode = .scaleAspectFill
+        })).execute(in: BackgroundDispatcher(), result: ABPromise<(users: [UserEntity]?, url: URL?, error: Error?)>({ (value) in
+            if let location = value?.url {
+                self.imageView.image = UIImage(contentsOfFile: location.path)
+                self.imageView.contentMode = .scaleAspectFill
                 print("Image downloaded successfully!")
-            } else if let error = response.2 {
-                self?.showAlert(message: error.localizedDescription)
+            } else if let error = value?.error {
+                self.showAlert(message: error.localizedDescription)
             }
-        }
+        }))
     }
     
     private func fetchSampleUsers() {
-        SampleOperation(SampleRequest.getSampleUsersData).execute(in: MainDispatcher()) { [weak self] ( response ) in
-            if let users = response.0, !users.isEmpty {
+        SampleOperation(SampleRequest.getSampleUsersData).execute(in: MainDispatcher(), result: ABPromise<(users: [UserEntity]?, url: URL?, error: Error?)>({ (value) in
+            if let users = value?.users, !users.isEmpty {
                 for user in users {
                     print(user)
                 }
-                self?.button.setTitle("Download Sample Image", for: .normal)
-                self?.showAlert(message: "Data fetched successfully!")
+                self.button.setTitle("Download Sample Image", for: .normal)
+                self.showAlert(message: "Data fetched successfully!")
                 
-            } else if let error = response.2 {
-                self?.showAlert(message: error.localizedDescription)
+            } else if let error = value?.error {
+                self.showAlert(message: error.localizedDescription)
             }
-        }
+        }))
     }
     
     private func showAlert(message: String) {
